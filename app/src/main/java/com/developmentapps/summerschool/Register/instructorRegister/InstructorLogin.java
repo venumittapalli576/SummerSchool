@@ -29,8 +29,8 @@ public class InstructorLogin extends AppCompatActivity {
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_COURSE="Course";
     private static final String KEY_EMPTY = "";
-    private EditText etUsername;
-    private EditText etPassword;
+    private EditText inUsername;
+    private EditText inPassword;
     private String username;
     private String password;
     private ProgressDialog pDialog;
@@ -46,8 +46,8 @@ public class InstructorLogin extends AppCompatActivity {
             loadDashboard();
         }
         setContentView(R.layout.activity_instructor_login);
-        etUsername = findViewById(R.id.etLoginUsername);
-        etPassword = findViewById(R.id.etLoginPassword);
+        inUsername = findViewById(R.id.etLoginUsername);
+        inPassword = findViewById(R.id.etLoginPassword);
 
         Button register = findViewById(R.id.btnLoginRegister);
         Button login = findViewById(R.id.btnLogin);
@@ -66,8 +66,8 @@ public class InstructorLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().toLowerCase().trim();
-                password = etPassword.getText().toString().trim();
+                username = inUsername.getText().toString().toLowerCase().trim();
+                password = inPassword.getText().toString().trim();
                 if (validateInputs()) {
                     login();
                 }
@@ -153,13 +153,13 @@ public class InstructorLogin extends AppCompatActivity {
      */
     private boolean validateInputs() {
         if(KEY_EMPTY.equals(username)){
-            etUsername.setError("Username cannot be empty");
-            etUsername.requestFocus();
+            inUsername.setError("Username cannot be empty");
+            inUsername.requestFocus();
             return false;
         }
         if(KEY_EMPTY.equals(password)){
-            etPassword.setError("Password cannot be empty");
-            etPassword.requestFocus();
+            inPassword.setError("Password cannot be empty");
+            inPassword.requestFocus();
             return false;
         }
         return true;

@@ -29,13 +29,13 @@ public class InstructorRegister extends AppCompatActivity {
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_COURSE = "course";
     private static final String KEY_EMPTY = "";
-    private EditText etUsername;
-    private EditText etPassword;
-    private EditText etConfirmPassword;
-    private EditText etFullName;
-    private EditText etEmail;
-    private EditText etPhonenumber;
-    private EditText etCourse;
+    private EditText inUsername;
+    private EditText inPassword;
+    private EditText inConfirmPassword;
+    private EditText inFullName;
+    private EditText inEmail;
+    private EditText inPhonenumber;
+    private EditText inCourse;
     private String username;
     private String password;
     private String confirmPassword;
@@ -52,13 +52,13 @@ public class InstructorRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_instructor_register);
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        etFullName = findViewById(R.id.etFullName);
-        etEmail = findViewById(R.id.etEmail);
-        etPhonenumber=findViewById(R.id.etPhonenumber);
-        etCourse=findViewById(R.id.Course);
+        inUsername = findViewById(R.id.inUsername);
+        inPassword = findViewById(R.id.inPassword);
+        inConfirmPassword = findViewById(R.id.inConfirmPassword);
+        inFullName = findViewById(R.id.inFullName);
+        inEmail = findViewById(R.id.inEmail);
+        inPhonenumber=findViewById(R.id.inPhonenumber);
+        inCourse=findViewById(R.id.Course);
 
         Button login = findViewById(R.id.btnRegisterLogin);
         Button register = findViewById(R.id.btnRegister);
@@ -77,13 +77,13 @@ public class InstructorRegister extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().toLowerCase().trim();
-                password = etPassword.getText().toString().trim();
-                confirmPassword = etConfirmPassword.getText().toString().trim();
-                fullName = etFullName.getText().toString().trim();
-                Email=etEmail.getText().toString().trim();
-                Phonenumber=etPhonenumber.getText().toString().trim();
-                course=etCourse.getText().toString().trim();
+                username = inUsername.getText().toString().toLowerCase().trim();
+                password = inPassword.getText().toString().trim();
+                confirmPassword = inConfirmPassword.getText().toString().trim();
+                fullName = inFullName.getText().toString().trim();
+                Email=inEmail.getText().toString().trim();
+                Phonenumber=inPhonenumber.getText().toString().trim();
+                course=inCourse.getText().toString().trim();
                 if (validateInputs()) {
                     registerUser();
                 }
@@ -144,8 +144,8 @@ public class InstructorRegister extends AppCompatActivity {
 
                             }else if(response.getInt(KEY_STATUS) == 1){
                                 //Display error message if username is already existsing
-                                etUsername.setError("Username already taken!");
-                                etUsername.requestFocus();
+                                inUsername.setError("Username already taken!");
+                                inUsername.requestFocus();
 
                             }else{
                                 Toast.makeText(getApplicationContext(),
@@ -179,45 +179,45 @@ public class InstructorRegister extends AppCompatActivity {
      */
     private boolean validateInputs() {
         if (KEY_EMPTY.equals(fullName)) {
-            etFullName.setError("Full Name cannot be empty");
-            etFullName.requestFocus();
+            inFullName.setError("Full Name cannot be empty");
+            inFullName.requestFocus();
             return false;
 
         }
         if (KEY_EMPTY.equals(username)) {
-            etUsername.setError("Username cannot be empty");
-            etUsername.requestFocus();
+            inUsername.setError("Username cannot be empty");
+            inUsername.requestFocus();
             return false;
         }
         if (KEY_EMPTY.equals(course)) {
-            etCourse.setError("Course cannot be empty");
-            etCourse.requestFocus();
+            inCourse.setError("Course cannot be empty");
+            inCourse.requestFocus();
             return false;
         }
         if (KEY_EMPTY.equals(Email)) {
-            etEmail.setError("Email cannot be empty");
-            etEmail.requestFocus();
+            inEmail.setError("Email cannot be empty");
+            inEmail.requestFocus();
             return false;
         }
         if (KEY_EMPTY.equals(Phonenumber)) {
-            etPhonenumber.setError("Phonenumber cannot be empty");
-            etPhonenumber.requestFocus();
+            inPhonenumber.setError("Phonenumber cannot be empty");
+            inPhonenumber.requestFocus();
             return false;
         }
         if (KEY_EMPTY.equals(password)) {
-            etPassword.setError("Password cannot be empty");
-            etPassword.requestFocus();
+            inPassword.setError("Password cannot be empty");
+            inPassword.requestFocus();
             return false;
         }
 
         if (KEY_EMPTY.equals(confirmPassword)) {
-            etConfirmPassword.setError("Confirm Password cannot be empty");
-            etConfirmPassword.requestFocus();
+            inConfirmPassword.setError("Confirm Password cannot be empty");
+            inConfirmPassword.requestFocus();
             return false;
         }
         if (!password.equals(confirmPassword)) {
-            etConfirmPassword.setError("Password and Confirm Password does not match");
-            etConfirmPassword.requestFocus();
+            inConfirmPassword.setError("Password and Confirm Password does not match");
+            inConfirmPassword.requestFocus();
             return false;
         }
 

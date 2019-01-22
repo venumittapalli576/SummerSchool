@@ -11,7 +11,7 @@
 
 
     <EditText
-        android:id="@+id/etLoginUsername"
+        android:id="@+id/inLoginUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -22,7 +22,7 @@
 
 
     <EditText
-        android:id="@+id/etLoginPassword"
+        android:id="@+id/inLoginPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
