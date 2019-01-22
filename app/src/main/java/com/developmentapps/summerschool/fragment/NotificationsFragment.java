@@ -1,9 +1,9 @@
 package com.developmentapps.summerschool.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.EnglishDetails;
 
 
-public class NotificationsFragment extends ListFragment implements AdapterView.OnItemClickListener  {
+public class NotificationsFragment extends ListFragment implements AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,6 +50,7 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -87,6 +89,12 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+
+        if (position == 4) {
+            Intent i = new Intent(getActivity(), EnglishDetails.class);
+            startActivity(i);
+            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+        }
 
     }
 

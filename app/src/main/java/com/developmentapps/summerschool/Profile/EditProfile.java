@@ -1,138 +1,213 @@
 package com.developmentapps.summerschool.Profile;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.os.Bundle;
 
 import com.developmentapps.summerschool.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import static android.media.MediaRecorder.VideoSource.CAMERA;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.developmentapps.summerschool.Register.memberRegister.MySingleton;
+import com.developmentapps.summerschool.Register.memberRegister.SessionHandler;
+import com.developmentapps.summerschool.activity.MainActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EditProfile extends AppCompatActivity {
-    private static int GALLERY = 1;
-    ImageView imageView;
+    private static final String KEY_STATUS = "status";
+    private static final String KEY_MESSAGE = "message";
+    private static final String KEY_FULL_NAME = "full_name";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_EMAIL = "Email";
+    private static final String KEY_PHONENUMBER = "Phonenumber";
+    private static final String KEY_EMPTY = "";
+    private EditText etUsername;
+    private EditText etPassword;
+    private EditText etConfirmPassword;
+    private EditText etFullName;
+    private EditText etEmail;
+    private EditText etPhonenumber;
+    private String username;
+    private String password;
+    private String confirmPassword;
+    private String fullName;
+    private String Email;
+    private String Phonenumber;
+    private ProgressDialog pDialog;
+    //private String register_url = "http://172.168.2.78/summerportal/register.php";
+    private String register_url = "http://192.168.1.7/summerportal/update.php";
+    private SessionHandler session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_edit_profile);
-        imageView = findViewById(R.id.imageview_account_profile);
-        imageView.setOnClickListener(new View.OnClickListener() {
+
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        etFullName = findViewById(R.id.etFullName);
+        etEmail = findViewById(R.id.etEmail);
+        etPhonenumber=findViewById(R.id.etPhonenumber);
+
+        Button register = findViewById(R.id.btnRegister);
+
+
+
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPictureDialog();
+                //Retrieve the data entered in the edit texts
+                username = etUsername.getText().toString().toLowerCase().trim();
+                password = etPassword.getText().toString().trim();
+                confirmPassword = etConfirmPassword.getText().toString().trim();
+                fullName = etFullName.getText().toString().trim();
+                Email=etEmail.getText().toString().trim();
+                Phonenumber=etPhonenumber.getText().toString().trim();
+                if (validateInputs()) {
+                    registerUser();
+                }
+
             }
         });
+
     }
 
-    private void showPictureDialog() {
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera"};
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
+    /**
+     * Display Progress bar while registering
+     */
+    private void displayLoader() {
+        pDialog = new ProgressDialog(EditProfile.this);
+        pDialog.setMessage("Signing Up.. Please wait...");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+    }
+
+    /**
+     * Launch Dashboard Activity on Successful Sign Up
+     */
+    private void loadDashboard() {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
+
+    }
+
+    private void registerUser() {
+        displayLoader();
+        JSONObject request = new JSONObject();
+        try {
+            //Populate the request parameters
+            request.put(KEY_USERNAME, username);
+            request.put(KEY_PASSWORD, password);
+            request.put(KEY_FULL_NAME, fullName);
+            request.put(KEY_EMAIL, Email);
+            request.put(KEY_PHONENUMBER, Phonenumber);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsArrayRequest = new JsonObjectRequest
+                (Request.Method.POST, register_url, request, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
+                    public void onResponse(JSONObject response) {
+                        pDialog.dismiss();
+                        try {
+                            //Check if user got registered successfully
+                            if (response.getInt(KEY_STATUS) == 0) {
+                                //Set the user session
+                                session.loginUser(username,fullName,Email,Phonenumber);
+                                loadDashboard();
+
+                            }else if(response.getInt(KEY_STATUS) == 1){
+                                //Display error message if username is already existsing
+                                etUsername.setError("Username already taken!");
+                                etUsername.requestFocus();
+
+                            }else{
+                                Toast.makeText(getApplicationContext(),
+                                        response.getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        pDialog.dismiss();
+
+                        //Display error message whenever an error occurs
+                        Toast.makeText(getApplicationContext(),
+                                error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
                 });
-        pictureDialog.show();
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsArrayRequest);
     }
 
-    public void choosePhotoFromGallary() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    /**
+     * Validates inputs and shows error if any
+     * @return
+     */
+    private boolean validateInputs() {
+        if (KEY_EMPTY.equals(fullName)) {
+            etFullName.setError("Full Name cannot be empty");
+            etFullName.requestFocus();
+            return false;
 
-        startActivityForResult(galleryIntent, GALLERY);
-    }
-
-    private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
-            return;
         }
-        if (requestCode == GALLERY) {
-            if (data != null) {
-                Uri contentURI = data.getData();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    String path = saveImage(bitmap);
-                    Toast.makeText(EditProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-                    imageView.setImageBitmap(bitmap);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(EditProfile.this, "Failed!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        } else if (requestCode == CAMERA) {
-            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(thumbnail);
-            saveImage(thumbnail);
-            Toast.makeText(EditProfile.this, "Image Saved!", Toast.LENGTH_SHORT).show();
+        if (KEY_EMPTY.equals(username)) {
+            etUsername.setError("Username cannot be empty");
+            etUsername.requestFocus();
+            return false;
         }
-    }
-
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + "IMAGE_DIRECTORY");
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
+        if (KEY_EMPTY.equals(Email)) {
+            etEmail.setError("Email cannot be empty");
+            etEmail.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(Phonenumber)) {
+            etPhonenumber.setError("Phonenumber cannot be empty");
+            etPhonenumber.requestFocus();
+            return false;
         }
 
-        try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        if (KEY_EMPTY.equals(password)) {
+            etPassword.setError("Password cannot be empty");
+            etPassword.requestFocus();
+            return false;
         }
-        return "";
+
+        if (KEY_EMPTY.equals(confirmPassword)) {
+            etConfirmPassword.setError("Confirm Password cannot be empty");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError("Password and Confirm Password does not match");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }

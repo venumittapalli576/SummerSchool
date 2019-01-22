@@ -1,12 +1,14 @@
-package com.developmentapps.summerschool.Register;
+package com.developmentapps.summerschool.Register.instructorRegister;
 
 import java.util.Date;
+
 
 public class User {
     String username;
     String fullName;
     String Email;
     String Phonenumber;
+    String Course;
     Date sessionExpiryDate;
 
     public void setUsername(String username) {
@@ -22,7 +24,11 @@ public class User {
     }
 
     public void setPhonenumber(String Phonenumber) {
-        this.Phonenumber= Phonenumber;
+        this.Phonenumber = Phonenumber;
+    }
+
+    public void setCourse(String Course) {
+        this.Course = Course;
     }
 
     public void setSessionExpiryDate(Date sessionExpiryDate) {
@@ -37,12 +43,12 @@ public class User {
         return fullName;
     }
 
-    public String getEmail() {
-        return Email;
-    }
-
     public String getPhonenumber() {
         return Phonenumber;
+    }
+
+    public String getCourse() {
+        return Course;
     }
 
     public Date getSessionExpiryDate() {

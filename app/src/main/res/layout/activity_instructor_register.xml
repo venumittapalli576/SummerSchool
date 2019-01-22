@@ -4,10 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#304769"
-    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:padding="50dp"
-    tools:context="com.developmentapps.summerschool.Register.memberRegister.RegisterActivity">
+    android:padding="40dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,12 +15,12 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:text="@string/sign_up"
         android:textAllCaps="true"
         android:textColor="@android:color/white"
-        android:textSize="26sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
 
@@ -34,7 +32,7 @@
         android:background="@android:color/white"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
-        android:padding="10dp" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etUsername"
@@ -44,34 +42,7 @@
         android:background="@android:color/white"
         android:hint="@string/username"
         android:inputType="textPersonName"
-        android:padding="10dp" />
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@android:color/white"
-            android:hint="Father Name"
-            android:inputType="text"
-            android:padding="10dp" />
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@android:color/white"
-            android:hint="age"
-            android:inputType="number"
-            android:padding="10dp" />
-        <EditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@android:color/white"
-            android:hint="interested course"
-            android:inputType="textAutoCorrect"
-            android:padding="10dp" />
+        android:padding="8dp" />
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
@@ -80,7 +51,7 @@
         android:background="@android:color/white"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:padding="10dp" />
+        android:padding="8dp" />
     <EditText
         android:id="@+id/etPhonenumber"
         android:layout_width="match_parent"
@@ -89,7 +60,7 @@
         android:background="@android:color/white"
         android:hint="Phonenumber"
         android:inputType="phone"
-        android:padding="10dp" />
+        android:padding="8dp" />
         <EditText
 
             android:layout_width="match_parent"
@@ -99,6 +70,24 @@
             android:hint="address"
             android:inputType="text"
             android:padding="10dp" />
+    <EditText
+        android:id="@+id/Course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white"
+        android:hint="Course"
+        android:inputType="text"
+        android:padding="8dp" />
+        <EditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="institution Name"
+            android:inputType="text"
+            android:padding="10dp" />
         <EditText
 
             android:layout_width="match_parent"
@@ -106,7 +95,16 @@
             android:layout_margin="5dp"
             android:background="@android:color/white"
             android:hint="Location"
-            android:inputType="textAutoCorrect"
+            android:inputType="text"
+            android:padding="10dp" />
+        <EditText
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:color/white"
+            android:hint="experience"
+            android:inputType="text"
             android:padding="10dp" />
 
 
@@ -118,7 +116,7 @@
         android:background="@android:color/white"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/etConfirmPassword"
@@ -128,7 +126,7 @@
         android:background="@android:color/white"
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
-        android:padding="10dp" />
+        android:padding="8dp" />
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"

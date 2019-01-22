@@ -3,15 +3,9 @@ package com.developmentapps.summerschool.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.MediaScannerConnection;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -20,10 +14,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,22 +27,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.developmentapps.summerschool.Profile.ViewProfile;
 import com.developmentapps.summerschool.R;
-import com.developmentapps.summerschool.Register.LoginActivity;
-import com.developmentapps.summerschool.Register.SessionHandler;
-import com.developmentapps.summerschool.Register.User;
+import com.developmentapps.summerschool.Register.memberRegister.LoginActivity;
+import com.developmentapps.summerschool.Register.memberRegister.SessionHandler;
+import com.developmentapps.summerschool.Register.memberRegister.User;
 import com.developmentapps.summerschool.fragment.HomeFragment;
 import com.developmentapps.summerschool.fragment.NotificationsFragment;
 import com.developmentapps.summerschool.fragment.PhotosFragment;
 import com.developmentapps.summerschool.fragment.SettingsFragment;
 import com.developmentapps.summerschool.other.Feedbackform;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-
-import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,14 +1,9 @@
-package com.developmentapps.summerschool.Register;
-
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.developmentapps.summerschool.R;
+package com.developmentapps.summerschool.Register.instructorRegister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +13,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegisterActivity extends AppCompatActivity {
+public class InstructorRegister extends AppCompatActivity {
     private static final String KEY_STATUS = "status";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_FULL_NAME = "full_name";
@@ -31,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_PHONENUMBER = "Phonenumber";
+    private static final String KEY_COURSE = "course";
     private static final String KEY_EMPTY = "";
     private EditText etUsername;
     private EditText etPassword;
@@ -38,29 +35,30 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etFullName;
     private EditText etEmail;
     private EditText etPhonenumber;
+    private EditText etCourse;
     private String username;
     private String password;
     private String confirmPassword;
     private String fullName;
     private String Email;
     private String Phonenumber;
+    private String course;
     private ProgressDialog pDialog;
-    //private String register_url = "http://172.168.2.78/summerportal/register.php";
-    private String register_url = "http://192.168.43.80/summerportal/register.php";
+    private String register_url = "http://192.168.43.80/instructor/register.php";
     private SessionHandler session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
-        setContentView(R.layout.activity_register);
-
+        setContentView(R.layout.activity_instructor_register);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPhonenumber=findViewById(R.id.etPhonenumber);
+        etCourse=findViewById(R.id.Course);
 
         Button login = findViewById(R.id.btnRegisterLogin);
         Button register = findViewById(R.id.btnRegister);
@@ -69,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent i = new Intent(InstructorRegister.this, InstructorLogin.class);
                 startActivity(i);
                 finish();
             }
@@ -85,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                 fullName = etFullName.getText().toString().trim();
                 Email=etEmail.getText().toString().trim();
                 Phonenumber=etPhonenumber.getText().toString().trim();
+                course=etCourse.getText().toString().trim();
                 if (validateInputs()) {
                     registerUser();
                 }
@@ -98,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Display Progress bar while registering
      */
     private void displayLoader() {
-        pDialog = new ProgressDialog(RegisterActivity.this);
+        pDialog = new ProgressDialog(InstructorRegister.this);
         pDialog.setMessage("Signing Up.. Please wait...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(false);
@@ -126,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
             request.put(KEY_FULL_NAME, fullName);
             request.put(KEY_EMAIL, Email);
             request.put(KEY_PHONENUMBER, Phonenumber);
+            request.put(KEY_COURSE, course);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
                             //Check if user got registered successfully
                             if (response.getInt(KEY_STATUS) == 0) {
                                 //Set the user session
-                                session.loginUser(username,fullName,Email);
+                                session.loginUser(username,fullName,Email,Phonenumber,course);
                                 loadDashboard();
 
                             }else if(response.getInt(KEY_STATUS) == 1){
@@ -189,6 +189,11 @@ public class RegisterActivity extends AppCompatActivity {
             etUsername.requestFocus();
             return false;
         }
+        if (KEY_EMPTY.equals(course)) {
+            etCourse.setError("Course cannot be empty");
+            etCourse.requestFocus();
+            return false;
+        }
         if (KEY_EMPTY.equals(Email)) {
             etEmail.setError("Email cannot be empty");
             etEmail.requestFocus();
@@ -199,7 +204,6 @@ public class RegisterActivity extends AppCompatActivity {
             etPhonenumber.requestFocus();
             return false;
         }
-
         if (KEY_EMPTY.equals(password)) {
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();

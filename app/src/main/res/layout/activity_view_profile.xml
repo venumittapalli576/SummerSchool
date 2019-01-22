@@ -98,6 +98,7 @@
 
     </LinearLayout>
     <Button
+        android:id="@+id/edit"
         android:textColor="#fff"
         android:background="@drawable/buttonstyle"
         android:layout_marginTop="35dp"

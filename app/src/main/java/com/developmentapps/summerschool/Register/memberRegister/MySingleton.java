@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.Register;
+package com.developmentapps.summerschool.Register.memberRegister;
 
 import android.content.Context;
 

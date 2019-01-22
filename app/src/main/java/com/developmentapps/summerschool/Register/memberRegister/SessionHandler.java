@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.Register;
+package com.developmentapps.summerschool.Register.memberRegister;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ public class SessionHandler {
     private static final String KEY_EXPIRES = "expires";
     private static final String KEY_FULL_NAME = "full_name";
     private static final String KEY_Email = "Email";
+    private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_EMPTY = "";
     private Context mContext;
     private SharedPreferences.Editor mEditor;
@@ -28,10 +29,11 @@ public class SessionHandler {
      * @param username
      * @param fullName
      */
-    public void loginUser(String username, String fullName,String Email) {
+    public void loginUser(String username, String fullName,String Email,String Phonenumber) {
         mEditor.putString(KEY_USERNAME, username);
         mEditor.putString(KEY_FULL_NAME, fullName);
         mEditor.putString(KEY_Email,Email);
+        mEditor.putString(KEY_PHONENUMBER,Phonenumber);
         Date date = new Date();
 
         //Set user session for next 7 days
@@ -78,6 +80,7 @@ public class SessionHandler {
         user.setUsername(mPreferences.getString(KEY_USERNAME, KEY_EMPTY));
         user.setFullName(mPreferences.getString(KEY_FULL_NAME, KEY_EMPTY));
         user.setEmail(mPreferences.getString(KEY_Email,KEY_EMPTY));
+        user.setPhonenumber(mPreferences.getString(KEY_PHONENUMBER,KEY_EMPTY));
         user.setSessionExpiryDate(new Date(mPreferences.getLong(KEY_EXPIRES, 0)));
 
         return user;
