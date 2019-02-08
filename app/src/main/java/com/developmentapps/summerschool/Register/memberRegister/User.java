@@ -7,6 +7,11 @@ public class User {
     String fullName;
     String Email;
     String Phonenumber;
+    String Fathername;
+    String Age;
+    String Selectedcourse;
+    String Address;
+    String Location;
     Date sessionExpiryDate;
 
     public void setUsername(String username) {
@@ -19,6 +24,22 @@ public class User {
 
     public void setEmail(String Email) {
         this.Email = Email;
+    }
+
+    public void setFathername(String Fathername) {
+        this.Fathername= Fathername;
+    }
+    public void setAddress(String Address) {
+        this.Address= Address;
+    }
+    public void setAge(String Age) {
+        this.Age= Age;
+    }
+    public void setLocation(String Location) {
+        this.Location= Location;
+    }
+    public void setSelectedcourse(String Intesteredcourse) {
+        this.Selectedcourse= Intesteredcourse;
     }
 
     public void setPhonenumber(String Phonenumber) {
@@ -43,6 +64,26 @@ public class User {
 
     public String getPhonenumber() {
         return Phonenumber;
+    }
+
+    public String getSelectedcourse() {
+        return Phonenumber;
+    }
+
+    public String getAge() {
+        return Age;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public String getFathername() {
+        return Fathername;
     }
 
     public Date getSessionExpiryDate() {

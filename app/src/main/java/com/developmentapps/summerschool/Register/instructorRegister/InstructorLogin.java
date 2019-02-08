@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -14,12 +17,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.Register.memberRegister.LoginActivity;
 import com.developmentapps.summerschool.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class InstructorLogin extends AppCompatActivity {
+public class InstructorLogin extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener {
+    String[] Login = {"Instructor", "Student"};
+
+
     private static final String KEY_STATUS = "status";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_FULL_NAME = "full_name";
@@ -46,6 +54,17 @@ public class InstructorLogin extends AppCompatActivity {
             loadDashboard();
         }
         setContentView(R.layout.activity_instructor_login);
+
+
+        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        spin.setOnItemSelectedListener(this);
+
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Login);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spin.setAdapter(aa);
+
+
         inUsername = findViewById(R.id.etLoginUsername);
         inPassword = findViewById(R.id.etLoginPassword);
 
@@ -163,5 +182,24 @@ public class InstructorLogin extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getApplicationContext(), Login[position], Toast.LENGTH_LONG).show();
+        if(position == 0)
+        {
+
+        }else
+        {
+            Intent i=new Intent(InstructorLogin.this, LoginActivity.class);
+            startActivity(i);
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

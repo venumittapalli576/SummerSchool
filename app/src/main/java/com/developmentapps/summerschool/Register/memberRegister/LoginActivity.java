@@ -2,30 +2,46 @@ package com.developmentapps.summerschool.Register.memberRegister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.developmentapps.summerschool.PdfView.PDF;
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.Register.instructorRegister.InstructorLogin;
 import com.developmentapps.summerschool.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener {
+
+    String[] Login = {"Student", "Instructor"};
+
+
     private static final String KEY_STATUS = "status";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_FULL_NAME = "full_name";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "Email";
+    private static final String KEY_FATHERNAME = "Fathername";
+    private static final String KEY_AGE = "Age";
+    private static final String KEY_SELECTEDCOURSE = "Selectedcourse";
+    private static final String KEY_ADDRESS = "Address";
+    private static final String KEY_LOCATION = "Location";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_EMPTY = "";
     private EditText etUsername;
@@ -42,10 +58,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
 
-        if(session.isLoggedIn()){
+        if (session.isLoggedIn()) {
             loadDashboard();
         }
         setContentView(R.layout.activity_login);
+        Spinner spin = (Spinner) findViewById(R.id.spinner);
+        spin.setOnItemSelectedListener(this);
+
+
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Login);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spin.setAdapter(aa);
 
         etUsername = findViewById(R.id.etLoginUsername);
         etPassword = findViewById(R.id.etLoginPassword);
@@ -119,10 +143,10 @@ public class LoginActivity extends AppCompatActivity {
                             //Check if user got logged in successfully
 
                             if (response.getInt(KEY_STATUS) == 0) {
-                                session.loginUser(username,response.getString(KEY_FULL_NAME),response.getString(KEY_EMAIL),response.getString(KEY_PHONENUMBER));
+                                session.loginUser(username, response.getString(KEY_FULL_NAME), response.getString(KEY_EMAIL), response.getString(KEY_PHONENUMBER), response.getString(KEY_SELECTEDCOURSE),response.getString(KEY_FATHERNAME),response.getString(KEY_LOCATION),response.getString(KEY_ADDRESS),response.getString(KEY_AGE));
                                 loadDashboard();
 
-                            }else{
+                            } else {
                                 Toast.makeText(getApplicationContext(),
                                         response.getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
 
@@ -146,23 +170,45 @@ public class LoginActivity extends AppCompatActivity {
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsArrayRequest);
+
+
     }
 
     /**
      * Validates inputs and shows error if any
+     *
      * @return
      */
     private boolean validateInputs() {
-        if(KEY_EMPTY.equals(username)){
+        if (KEY_EMPTY.equals(username)) {
             etUsername.setError("Username cannot be empty");
             etUsername.requestFocus();
             return false;
         }
-        if(KEY_EMPTY.equals(password)){
+        if (KEY_EMPTY.equals(password)) {
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
             return false;
         }
         return true;
+    }
+
+    //Performing action onItemSelected and onNothing selected
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+        Toast.makeText(getApplicationContext(), Login[position], Toast.LENGTH_LONG).show();
+        if(position == 0)
+        {
+
+        }else
+        {
+            Intent i=new Intent(LoginActivity.this, InstructorLogin.class);
+            startActivity(i);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
     }
 }

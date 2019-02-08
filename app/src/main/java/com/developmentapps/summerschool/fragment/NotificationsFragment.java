@@ -90,6 +90,11 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
 
+        if(position==){
+            Intent i = new Intent(getActivity(), .class);
+            startActivity(i);
+            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+        }
         if (position == 4) {
             Intent i = new Intent(getActivity(), EnglishDetails.class);
             startActivity(i);

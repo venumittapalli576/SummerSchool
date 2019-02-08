@@ -44,7 +44,7 @@ public class InstructorRegister extends AppCompatActivity {
     private String Phonenumber;
     private String course;
     private ProgressDialog pDialog;
-    private String register_url = "http://192.168.43.80/instructor/register.php";
+    private String register_url = "http://192.168.1.204/instructor/register.php";
     private SessionHandler session;
 
     @Override

@@ -11,6 +11,11 @@ public class SessionHandler {
     private static final String KEY_EXPIRES = "expires";
     private static final String KEY_FULL_NAME = "full_name";
     private static final String KEY_Email = "Email";
+    private static final String KEY_FATHERNAME = "Fathername";
+    private static final String KEY_AGE = "Age";
+    private static final String KEY_SELECTEDCOURSE = "Selectedcourse";
+    private static final String KEY_ADDRESS = "Address";
+    private static final String KEY_LOCATION = "Location";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_EMPTY = "";
     private Context mContext;
@@ -29,11 +34,16 @@ public class SessionHandler {
      * @param username
      * @param fullName
      */
-    public void loginUser(String username, String fullName,String Email,String Phonenumber) {
+    public void loginUser(String username, String fullName,String Email,String Phonenumber,String Selectedcourse,String Fathername,String Location,String Address,String Age) {
         mEditor.putString(KEY_USERNAME, username);
         mEditor.putString(KEY_FULL_NAME, fullName);
         mEditor.putString(KEY_Email,Email);
         mEditor.putString(KEY_PHONENUMBER,Phonenumber);
+       mEditor.putString(KEY_ADDRESS,Address);
+        mEditor.putString(KEY_AGE,Age);
+        mEditor.putString(KEY_FATHERNAME,Fathername);
+       mEditor.putString(KEY_LOCATION,Location);
+        mEditor.putString(KEY_SELECTEDCOURSE,Selectedcourse);
         Date date = new Date();
 
         //Set user session for next 7 days
@@ -81,6 +91,11 @@ public class SessionHandler {
         user.setFullName(mPreferences.getString(KEY_FULL_NAME, KEY_EMPTY));
         user.setEmail(mPreferences.getString(KEY_Email,KEY_EMPTY));
         user.setPhonenumber(mPreferences.getString(KEY_PHONENUMBER,KEY_EMPTY));
+        user.setFathername(mPreferences.getString(KEY_FATHERNAME,KEY_EMPTY));
+        user.setAge(mPreferences.getString(KEY_AGE,KEY_EMPTY));
+        user.setSelectedcourse(mPreferences.getString(KEY_SELECTEDCOURSE,KEY_EMPTY));
+        user.setAddress(mPreferences.getString(KEY_ADDRESS,KEY_EMPTY));
+        user.setLocation(mPreferences.getString(KEY_LOCATION,KEY_EMPTY));
         user.setSessionExpiryDate(new Date(mPreferences.getLong(KEY_EXPIRES, 0)));
 
         return user;

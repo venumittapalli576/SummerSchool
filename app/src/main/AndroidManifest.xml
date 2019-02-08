@@ -16,16 +16,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".Register.memberRegister.LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".course.ZimDetails"></activity>
+        <activity android:name=".course.DrivingDetails" />
+        <activity android:name=".course.YogaDetails" />
+        <activity android:name=".course.BankcoachingDetails" />
+        <activity android:name=".course.ComputerlearningDetails" />
+        <activity android:name=".course.AbacusDetails" />
+        <activity android:name=".course.SkettingDetails" />
+        <activity android:name=".course.SwimmingDetails" />
+        <activity android:name=".course.HindiDetails" />
+        <activity android:name=".course.DrawingDetails" />
+        <activity android:name=".course.MusicDetails" />
+        <activity android:name=".course.DanceDetails" />
+        <activity android:name=".VideoView" />
+        <activity android:name=".activity.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Register.memberRegister.LoginActivity" />
+        <activity android:name=".PdfView.PDFActivity" />
+        <activity android:name=".PdfView.PDF" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity android:name=".activity.PrivacyPolicyActivity" />
         <activity android:name=".Register.memberRegister.RegisterActivity" />
@@ -36,7 +49,7 @@
         <activity android:name=".course.EnglishDetails" />
         <activity android:name=".course.list_item" />
         <activity android:name=".Register.instructorRegister.InstructorLogin" />
-        <activity android:name=".Register.instructorRegister.InstructorRegister"></activity>
+        <activity android:name=".Register.instructorRegister.InstructorRegister" />
     </application>
 
 </manifest>

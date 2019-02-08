@@ -1,5 +1,6 @@
 package com.developmentapps.summerschool.Profile;
 
+import android.location.Address;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -30,6 +31,11 @@ public class EditProfile extends AppCompatActivity {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "Email";
+    private static final String KEY_FATHERNAME = "Fathername";
+    private static final String KEY_AGE = "Age";
+    private static final String KEY_INTERESTEDCOURSE = "Interestedcourse";
+    private static final String KEY_ADDRESS = "Address";
+    private static final String KEY_LOCATION = "Location";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_EMPTY = "";
     private EditText etUsername;
@@ -38,12 +44,22 @@ public class EditProfile extends AppCompatActivity {
     private EditText etFullName;
     private EditText etEmail;
     private EditText etPhonenumber;
+    private EditText etFathername;
+    private EditText etAge;
+    private EditText etIntesteredcourse;
+    private EditText etAddress;
+    private EditText etLocation;
     private String username;
     private String password;
     private String confirmPassword;
     private String fullName;
     private String Email;
     private String Phonenumber;
+    private String Fathername;
+    private String Age;
+    private String Intesteredcourse;
+    private String Address;
+    private String Location;
     private ProgressDialog pDialog;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
     private String register_url = "http://192.168.1.7/summerportal/update.php";
@@ -61,6 +77,11 @@ public class EditProfile extends AppCompatActivity {
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
         etPhonenumber=findViewById(R.id.etPhonenumber);
+        etFathername=findViewById(R.id.etFathername);
+        etAge=findViewById(R.id.etAge);
+        etIntesteredcourse=findViewById(R.id.etSelectedcourse);
+        etAddress=findViewById(R.id.etAddress);
+        etLocation=findViewById(R.id.etLocation);
 
         Button register = findViewById(R.id.btnRegister);
 
@@ -76,6 +97,11 @@ public class EditProfile extends AppCompatActivity {
                 fullName = etFullName.getText().toString().trim();
                 Email=etEmail.getText().toString().trim();
                 Phonenumber=etPhonenumber.getText().toString().trim();
+                Fathername=etFathername.getText().toString().trim();
+                Age=etAge.getText().toString().trim();
+                Intesteredcourse=etIntesteredcourse.getText().toString().trim();
+                Address=etAddress.getText().toString().trim();
+                Location=etLocation.getText().toString().trim();
                 if (validateInputs()) {
                     registerUser();
                 }
@@ -117,6 +143,11 @@ public class EditProfile extends AppCompatActivity {
             request.put(KEY_FULL_NAME, fullName);
             request.put(KEY_EMAIL, Email);
             request.put(KEY_PHONENUMBER, Phonenumber);
+            request.put(KEY_FATHERNAME, Fathername);
+            request.put(KEY_AGE, Age);
+            request.put(KEY_INTERESTEDCOURSE, Intesteredcourse);
+            request.put(KEY_ADDRESS, Address);
+            request.put(KEY_LOCATION, Location);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -130,7 +161,7 @@ public class EditProfile extends AppCompatActivity {
                             //Check if user got registered successfully
                             if (response.getInt(KEY_STATUS) == 0) {
                                 //Set the user session
-                                session.loginUser(username,fullName,Email,Phonenumber);
+                                session.loginUser(username,fullName,Email,Phonenumber,Intesteredcourse,Fathername,Location,Address,Age);
                                 loadDashboard();
 
                             }else if(response.getInt(KEY_STATUS) == 1){

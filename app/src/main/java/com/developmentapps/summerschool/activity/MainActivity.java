@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.developmentapps.summerschool.PdfView.PDF;
 import com.developmentapps.summerschool.Profile.ViewProfile;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.Register.memberRegister.LoginActivity;
@@ -33,7 +34,6 @@ import com.developmentapps.summerschool.Register.memberRegister.User;
 import com.developmentapps.summerschool.fragment.HomeFragment;
 import com.developmentapps.summerschool.fragment.NotificationsFragment;
 import com.developmentapps.summerschool.fragment.PhotosFragment;
-import com.developmentapps.summerschool.fragment.SettingsFragment;
 import com.developmentapps.summerschool.other.Feedbackform;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_HOME = "home";
     private static final String TAG_PHOTOS = "photos";
     private static final String TAG_NOTIFICATIONS = "notifications";
-    private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -311,11 +310,6 @@ public class MainActivity extends AppCompatActivity {
                 // notifications fragment
                 NotificationsFragment notificationsFragment = new NotificationsFragment();
                 return notificationsFragment;
-
-            case 3:
-                // settings fragment
-                SettingsFragment settingsFragment = new SettingsFragment();
-                return settingsFragment;
             default:
                 return new HomeFragment();
         }
@@ -352,10 +346,8 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
-                    case R.id.nav_settings:
-                        navItemIndex = 3;
-                        CURRENT_TAG = TAG_SETTINGS;
-                        break;
+                    case R.id.pdf:
+                        startActivity(new Intent(MainActivity.this, PDF.class));
                     case R.id.nav_about_us:
                         // launch new intent instead of loading fragment
                         startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
