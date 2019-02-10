@@ -29,7 +29,7 @@ public class EnglishDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "https://api.myjson.com/bins/naugi";
+    private static String url = "http://192.168.43.142/summerportal/EnglishDetails.php";
 
     ArrayList<HashMap<String, String>> EnglishList;
 

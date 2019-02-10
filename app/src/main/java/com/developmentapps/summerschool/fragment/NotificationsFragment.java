@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
@@ -50,11 +53,13 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    EditText inputSearch;
+    static ArrayAdapter adapter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),
+        adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.OfflineCourses, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
@@ -64,7 +69,29 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false);
+        View view= inflater.inflate(R.layout.fragment_notifications, container, false);
+        inputSearch = (EditText) view.findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                PhotosFragment.adapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,11 +117,11 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
 
-        if(position==){
+        /*if(position==){
             Intent i = new Intent(getActivity(), .class);
             startActivity(i);
             Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-        }
+        }*/
         if (position == 4) {
             Intent i = new Intent(getActivity(), EnglishDetails.class);
             startActivity(i);

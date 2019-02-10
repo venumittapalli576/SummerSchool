@@ -16,7 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".course.ZimDetails"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true" />
+
+        <activity android:name=".course.ZimDetails" />
         <activity android:name=".course.DrivingDetails" />
         <activity android:name=".course.YogaDetails" />
         <activity android:name=".course.BankcoachingDetails" />
