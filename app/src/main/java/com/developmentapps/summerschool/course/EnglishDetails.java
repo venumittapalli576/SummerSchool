@@ -119,7 +119,6 @@ public class EnglishDetails extends AppCompatActivity {
                                     .show();
 
 
-
                         }
                     });
 
