@@ -30,7 +30,7 @@ public class EnglishDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.80/summerportal/eg.php";
+    private static String url = "http://192.168.43.142/summerportal/viewdetails/eg.php";
 
     ArrayList<HashMap<String, String>> EnglishList;
 
@@ -69,45 +69,34 @@ public class EnglishDetails extends AppCompatActivity {
 
             if (jsonStr != null) {
                 try {
-                    JSONArray jsonArray=new JSONArray(jsonStr);
-                   JSONObject jsonObject= jsonArray.getJSONObject(0);
-                String user=   jsonObject.getString("username");
-                 String email=  jsonObject.getString("Email");
-                  String pass= jsonObject.getString("Phonenumber");
-                  Log.d("checkingData",user+email+pass);
-                    //JSONObject jsonObj = new JSONObject(jsonStr);
+
+                    JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
-                   // JSONArray contacts = jsonObj.getJSONArray("contacts");
+                    JSONArray contacts = jsonObj.getJSONArray("contacts");
 
                     // looping through All Contacts
-//                    for (int i = 0; i < contacts.length(); i++) {
-//                        JSONObject c = contacts.getJSONObject(i);
-//
-//                        String id = c.getString("id");
-//                        String name = c.getString("name");
-//                        String email = c.getString("email");
-//                        String address = c.getString("address");
-//                        String gender = c.getString("gender");
-//
-//                        // Phone node is JSON Object
-//                        JSONObject phone = c.getJSONObject("phone");
-//                        String mobile = phone.getString("mobile");
-//                        String home = phone.getString("home");
-//                        String office = phone.getString("office");
-//
-//                        // tmp hash map for single contact
-//                        HashMap<String, String> contact = new HashMap<>();
-//
-//                        // adding each child node to HashMap key => value
-//                        contact.put("id", id);
-//                        contact.put("name", name);
-//                        contact.put("email", email);
-//                        contact.put("mobile", mobile);
-//
-//                        // adding contact to contact list
-//                        EnglishList.add(contact);
-//                    }
+                  for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject c = contacts.getJSONObject(i);
+
+                        String id = c.getString("user_id");
+                        String name = c.getString("username");
+                        String email = c.getString("Email");
+                        String phonenumber = c.getString("Phonenumber");
+
+
+                        // tmp hash map for single contact
+                        HashMap<String, String> contact = new HashMap<>();
+
+                        // adding each child node to HashMap key => value
+                        contact.put("user_id", id);
+                        contact.put("name", name);
+                        contact.put("email", email);
+                        contact.put("Phonenumber", phonenumber);
+
+                        // adding contact to contact list
+                        EnglishList.add(contact);
+                    }
 
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -150,7 +139,7 @@ public class EnglishDetails extends AppCompatActivity {
              * Updating parsed JSON data into ListView
              * */
             adapter = new SimpleAdapter(EnglishDetails.this, EnglishList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+                    new String[]{"name", "email", "Phonenumber"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);
 

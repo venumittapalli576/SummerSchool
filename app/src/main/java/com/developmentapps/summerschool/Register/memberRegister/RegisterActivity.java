@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements
     private String Gender;
     private ProgressDialog pDialog;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
-    private String register_url = "http://192.168.43.80/summerportal/register.php";
+    private String register_url = "http://192.168.43.142/summerportal/register.php";
     private SessionHandler session;
 
     @Override

@@ -28,7 +28,7 @@ public class MusicDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "https://api.myjson.com/bins/naugi";
+    private static String url = "http://192.168.43.142/summerportal/viewdetails/MusicDetails.php";
 
     ArrayList<HashMap<String, String>> MusicList;
 
@@ -76,26 +76,20 @@ public class MusicDetails extends AppCompatActivity {
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
 
-                        String id = c.getString("id");
-                        String name = c.getString("name");
-                        String email = c.getString("email");
-                        String address = c.getString("address");
-                        String gender = c.getString("gender");
+                        String id = c.getString("user_id");
+                        String name = c.getString("username");
+                        String email = c.getString("Email");
+                        String phonenumber = c.getString("Phonenumber");
 
-                        // Phone node is JSON Object
-                        JSONObject phone = c.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-                        String home = phone.getString("home");
-                        String office = phone.getString("office");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
 
                         // adding each child node to HashMap key => value
-                        contact.put("id", id);
+                        contact.put("user_id", id);
                         contact.put("name", name);
                         contact.put("email", email);
-                        contact.put("mobile", mobile);
+                        contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
                         MusicList.add(contact);
