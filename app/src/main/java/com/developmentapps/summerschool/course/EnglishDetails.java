@@ -117,6 +117,9 @@ public class EnglishDetails extends AppCompatActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
+
+
+
                         }
                     });
 
