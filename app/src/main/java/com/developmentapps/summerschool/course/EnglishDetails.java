@@ -108,6 +108,7 @@ public class EnglishDetails extends AppCompatActivity {
 //                        // adding contact to contact list
 //                        EnglishList.add(contact);
 //                    }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
