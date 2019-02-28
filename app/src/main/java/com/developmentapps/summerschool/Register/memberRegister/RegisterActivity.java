@@ -1,35 +1,41 @@
 package com.developmentapps.summerschool.Register.memberRegister;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import com.developmentapps.summerschool.R;
-
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.developmentapps.summerschool.activity.MainActivity;
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
+import com.developmentapps.summerschool.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.security.SecureRandom;
 
 public class RegisterActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
 
-    String[] SGender = { "Male", "Female", "Other"};
-
+    String[] SGender = {"Male", "Female", "Other"};
 
 
     private static final String KEY_STATUS = "status";
@@ -71,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements
     private String Gender;
     private ProgressDialog pDialog;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
-    private String register_url = "http://192.168.43.142/summerportal/register.php";
+    private String register_url = "http://192.168.43.80/summerportal/register.php";
     private SessionHandler session;
 
     @Override
@@ -81,17 +87,15 @@ public class RegisterActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_register);
 
 
-
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
-        etGender= (Spinner) findViewById(R.id.etGender);
+        etGender = (Spinner) findViewById(R.id.etGender);
         etGender.setOnItemSelectedListener(this);
 
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,SGender);
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, SGender);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         etGender.setAdapter(aa);
-
 
 
         etUsername = findViewById(R.id.etUsername);
@@ -99,12 +103,12 @@ public class RegisterActivity extends AppCompatActivity implements
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etFullName = findViewById(R.id.etFullName);
         etEmail = findViewById(R.id.etEmail);
-        etPhonenumber=findViewById(R.id.etPhonenumber);
-        etFathername=findViewById(R.id.etFathername);
-        etAge=findViewById(R.id.etAge);
-        etSelectedcourse=findViewById(R.id.etSelectedcourse);
-         etAddress=findViewById(R.id.etAddress);
-          etLocation=findViewById(R.id.etLocation);
+        etPhonenumber = findViewById(R.id.etPhonenumber);
+        etFathername = findViewById(R.id.etFathername);
+        etAge = findViewById(R.id.etAge);
+        etSelectedcourse = findViewById(R.id.etSelectedcourse);
+        etAddress = findViewById(R.id.etAddress);
+        etLocation = findViewById(R.id.etLocation);
 
         Button login = findViewById(R.id.btnRegisterLogin);
         Button register = findViewById(R.id.btnRegister);
@@ -122,21 +126,44 @@ public class RegisterActivity extends AppCompatActivity implements
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().toLowerCase().trim();
-                password = etPassword.getText().toString().trim();
-                confirmPassword = etConfirmPassword.getText().toString().trim();
-                fullName = etFullName.getText().toString().trim();
-                Email=etEmail.getText().toString().trim();
-                Phonenumber=etPhonenumber.getText().toString().trim();
-                Fathername=etFathername.getText().toString().trim();
-                Age=etAge.getText().toString().trim();
-                Selectedcourse=etSelectedcourse.getText().toString().trim();
-                Address=etAddress.getText().toString().trim();
-                Location=etLocation.getText().toString().trim();
-                if (validateInputs()) {
-                    registerUser();
-                }
+                //if (ConnectionCheck.connection) {
+                    //Retrieve the data entered in the edit texts
+                    username = etUsername.getText().toString().toLowerCase().trim();
+                    password = etPassword.getText().toString().trim();
+                    confirmPassword = etConfirmPassword.getText().toString().trim();
+                    fullName = etFullName.getText().toString().trim();
+                    Email = etEmail.getText().toString().trim();
+                    Phonenumber = etPhonenumber.getText().toString().trim();
+                    Fathername = etFathername.getText().toString().trim();
+                    Age = etAge.getText().toString().trim();
+                    Selectedcourse = etSelectedcourse.getText().toString().trim();
+                    Address = etAddress.getText().toString().trim();
+                    Location = etLocation.getText().toString().trim();
+                    if (validateInputs()) {
+                        registerUser();
+                    }
+               /* } else {
+                    Snackbar snackbar = Snackbar
+                            .make(v, "No internet connection!", Snackbar.LENGTH_LONG)
+                            .setAction("RETRY", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
+                                }
+                            });
+
+                    // Changing message text color
+                    snackbar.setActionTextColor(Color.RED);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+
+                    snackbar.show();
+                }*/
 
             }
         });
@@ -159,9 +186,51 @@ public class RegisterActivity extends AppCompatActivity implements
      * Launch Dashboard Activity on Successful Sign Up
      */
     private void loadDashboard() {
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        //generating otp
+        int otp = generateRandomNumber();
+
+        //sending otp
+        sendMessage(otp);
+
+        Intent i = new Intent(getApplicationContext(), OTPactivity.class);
+        i.putExtra("otp", otp);
         startActivity(i);
         finish();
+
+    }
+
+
+    public int generateRandomNumber() {
+        int randomNumber;
+        int range = 9;  // to generate a single number with this range, by default its 0..9
+        int length = 4; // by default length is 4
+
+        SecureRandom secureRandom = new SecureRandom();
+        String s = "";
+        for (int i = 0; i < length; i++) {
+            int number = secureRandom.nextInt(range);
+            if (number == 0 && i == 0) { // to prevent the Zero to be the first number as then it will reduce the length of generated pin to three or even more if the second or third number came as zeros
+                i = -1;
+                continue;
+            }
+            s = s + number;
+        }
+        randomNumber = Integer.parseInt(s);
+        return randomNumber;
+    }
+
+
+    public void sendMessage(int otp) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(Phonenumber, null, ""+otp, null, null);
+            Toast.makeText(this,"Message sent...",Toast.LENGTH_LONG).show();
+
+
+        } else {
+            Toast.makeText(this, "enable all permissions", Toast.LENGTH_LONG).show();
+        }
 
     }
 
@@ -193,15 +262,15 @@ public class RegisterActivity extends AppCompatActivity implements
                             //Check if user got registered successfully
                             if (response.getInt(KEY_STATUS) == 0) {
                                 //Set the user session
-                                session.loginUser(username,fullName,Email,Phonenumber,Selectedcourse,Fathername,Location,Address,Age);
+                                session.loginUser(username, fullName, Email, Phonenumber, Selectedcourse, Fathername, Location, Address, Age);
                                 loadDashboard();
 
-                            }else if(response.getInt(KEY_STATUS) == 1){
+                            } else if (response.getInt(KEY_STATUS) == 1) {
                                 //Display error message if username is already existsing
                                 etUsername.setError("Username already taken!");
                                 etUsername.requestFocus();
 
-                            }else{
+                            } else {
                                 Toast.makeText(getApplicationContext(),
                                         response.getString(KEY_MESSAGE), Toast.LENGTH_SHORT).show();
 
@@ -229,6 +298,7 @@ public class RegisterActivity extends AppCompatActivity implements
 
     /**
      * Validates inputs and shows error if any
+     *
      * @return
      */
     private boolean validateInputs() {
@@ -302,7 +372,7 @@ public class RegisterActivity extends AppCompatActivity implements
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(),SGender[position] , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), SGender[position], Toast.LENGTH_LONG).show();
     }
 
     @Override

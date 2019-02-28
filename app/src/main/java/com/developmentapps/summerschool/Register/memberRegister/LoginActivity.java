@@ -2,22 +2,26 @@ package com.developmentapps.summerschool.Register.memberRegister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.location.Location;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.developmentapps.summerschool.PdfView.PDF;
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
+import com.developmentapps.summerschool.Connection.NoConnectionPage;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.Register.instructorRegister.InstructorLogin;
 import com.developmentapps.summerschool.activity.MainActivity;
@@ -50,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements
     private String password;
     private ProgressDialog pDialog;
     //private String login_url = "http://172.168.2.78/summerportal/login.php";
-    private String login_url = "http://192.168.43.142/summerportal/login.php";
+    private String login_url = "http://192.168.43.80/summerportal/login.php";
     private SessionHandler session;
 
     @Override
@@ -90,11 +94,39 @@ public class LoginActivity extends AppCompatActivity implements
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().toLowerCase().trim();
-                password = etPassword.getText().toString().trim();
-                if (validateInputs()) {
-                    login();
+                if(ConnectionCheck.connection) {
+
+
+                    //Retrieve the data entered in the edit texts
+                    username = etUsername.getText().toString().toLowerCase().trim();
+                    password = etPassword.getText().toString().trim();
+                    if (validateInputs()) {
+                        login();
+                    }
+                }else{
+                    /*Snackbar snackbar = Snackbar
+                            .make(v, "No internet connection!", Snackbar.LENGTH_LONG)
+                            .setAction("RETRY", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
+                                }
+                            });
+
+                    // Changing message text color
+                    snackbar.setActionTextColor(Color.RED);
+
+                    // Changing action button text color
+                    View sbView = snackbar.getView();
+                    TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+
+                    snackbar.show();*/
+
+                    Intent i=new Intent(LoginActivity.this, NoConnectionPage.class);
+                    startActivity(i);
                 }
             }
         });

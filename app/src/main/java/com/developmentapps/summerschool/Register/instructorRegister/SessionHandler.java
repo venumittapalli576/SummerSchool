@@ -14,6 +14,10 @@ public class SessionHandler {
     private static final String KEY_Email = "Email";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_COURSE = "Course";
+    private static final String KEY_ADDRESS = "Address";
+    private static final String KEY_Location="Location";
+    private static final String KEY_EXPERIENCE="Experience";
+    private static final String KEY_INSTITUTION="InstitutionName";
     private static final String KEY_EMPTY = "";
     private Context mContext;
     private SharedPreferences.Editor mEditor;
@@ -31,12 +35,16 @@ public class SessionHandler {
      * @param username
      * @param fullName
      */
-    public void loginUser(String username, String fullName,String Email,String Phonenumber,String course) {
+    public void loginUser(String username, String fullName,String Email,String Phonenumber,String course,String Address,String Location,String Experience,String InstitutionName) {
         mEditor.putString(KEY_USERNAME, username);
         mEditor.putString(KEY_FULL_NAME, fullName);
         mEditor.putString(KEY_Email,Email);
         mEditor.putString(KEY_PHONENUMBER,Phonenumber);
         mEditor.putString(KEY_COURSE,course);
+        mEditor.putString(KEY_ADDRESS,Address);
+        mEditor.putString(KEY_Location,Location);
+        mEditor.putString(KEY_EXPERIENCE,Experience);
+        mEditor.putString(KEY_INSTITUTION,InstitutionName);
 
         Date date = new Date();
 
@@ -86,6 +94,10 @@ public class SessionHandler {
         user.setEmail(mPreferences.getString(KEY_Email,KEY_EMPTY));
         user.setPhonenumber(mPreferences.getString(KEY_PHONENUMBER,KEY_EMPTY));
         user.setCourse(mPreferences.getString(KEY_COURSE,KEY_EMPTY));
+        user.setAddress(mPreferences.getString(KEY_ADDRESS,KEY_EMPTY));
+        user.setLocation(mPreferences.getString(KEY_Location,KEY_EMPTY));
+        user.setExperience(mPreferences.getString(KEY_EXPERIENCE,KEY_EMPTY));
+        user.setInstitution(mPreferences.getString(KEY_INSTITUTION,KEY_EMPTY));
         user.setSessionExpiryDate(new Date(mPreferences.getLong(KEY_EXPIRES, 0)));
 
         return user;

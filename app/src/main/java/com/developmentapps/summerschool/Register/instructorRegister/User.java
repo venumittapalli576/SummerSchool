@@ -9,6 +9,10 @@ public class User {
     String Email;
     String Phonenumber;
     String Course;
+    String Address;
+    String Location;
+    String Experience;
+    String Institution;
     Date sessionExpiryDate;
 
     public void setUsername(String username) {
@@ -31,6 +35,22 @@ public class User {
         this.Course = Course;
     }
 
+    public void setLocation(String Location) {
+        this.Location = Location;
+    }
+
+    public void setExperience(String Experience) {
+        this.Experience = Experience;
+    }
+
+    public void setInstitution(String Institution) {
+        this.Institution = Institution;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+
     public void setSessionExpiryDate(Date sessionExpiryDate) {
         this.sessionExpiryDate = sessionExpiryDate;
     }
@@ -49,6 +69,23 @@ public class User {
 
     public String getCourse() {
         return Course;
+    }
+
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public String getExperience() {
+        return Experience;
+    }
+
+    public String getInstitution() {
+        return Institution;
     }
 
     public Date getSessionExpiryDate() {

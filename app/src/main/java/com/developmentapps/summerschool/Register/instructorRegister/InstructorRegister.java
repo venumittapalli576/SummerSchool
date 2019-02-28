@@ -26,25 +26,37 @@ public class InstructorRegister extends AppCompatActivity {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "Email";
+    private static final String KEY_ADDRESS = "Address";
     private static final String KEY_PHONENUMBER = "Phonenumber";
-    private static final String KEY_COURSE = "course";
+    private static final String KEY_COURSE = "Course";
+    private static final String KEY_Location="Location";
+    private static final String KEY_EXPERIENCE="Experience";
+    private static final String KEY_INSTITUTION="InstitutionName";
     private static final String KEY_EMPTY = "";
     private EditText inUsername;
     private EditText inPassword;
     private EditText inConfirmPassword;
     private EditText inFullName;
     private EditText inEmail;
+    private EditText inAddress;
     private EditText inPhonenumber;
     private EditText inCourse;
+    private EditText inLocation;
+    private EditText inExperience;
+    private EditText inInstitution;
     private String username;
     private String password;
     private String confirmPassword;
     private String fullName;
     private String Email;
+    private String Address;
     private String Phonenumber;
     private String course;
+    private String Location;
+    private String Experience;
+    private String InstitutionName;
     private ProgressDialog pDialog;
-    private String register_url = "http://192.168.1.204/instructor/register.php";
+    private String register_url = "http://192.168.43.80/instructor/register.php";
     private SessionHandler session;
 
     @Override
@@ -59,6 +71,11 @@ public class InstructorRegister extends AppCompatActivity {
         inEmail = findViewById(R.id.inEmail);
         inPhonenumber=findViewById(R.id.inPhonenumber);
         inCourse=findViewById(R.id.Course);
+        inAddress=findViewById(R.id.inaddress);
+        inLocation=findViewById(R.id.inlocation);
+        inInstitution=findViewById(R.id.ininstitution);
+        inExperience=findViewById(R.id.inexperience);
+
 
         Button login = findViewById(R.id.btnRegisterLogin);
         Button register = findViewById(R.id.btnRegister);
@@ -84,6 +101,10 @@ public class InstructorRegister extends AppCompatActivity {
                 Email=inEmail.getText().toString().trim();
                 Phonenumber=inPhonenumber.getText().toString().trim();
                 course=inCourse.getText().toString().trim();
+                Address=inAddress.getText().toString().trim();
+                Location=inLocation.getText().toString().trim();
+                Experience=inExperience.getText().toString().trim();
+                InstitutionName=inInstitution.getText().toString().trim();
                 if (validateInputs()) {
                     registerUser();
                 }
@@ -126,6 +147,10 @@ public class InstructorRegister extends AppCompatActivity {
             request.put(KEY_EMAIL, Email);
             request.put(KEY_PHONENUMBER, Phonenumber);
             request.put(KEY_COURSE, course);
+            request.put(KEY_ADDRESS, Address);
+            request.put(KEY_Location, Location);
+            request.put(KEY_EXPERIENCE,Experience);
+            request.put(KEY_INSTITUTION, InstitutionName);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -139,7 +164,7 @@ public class InstructorRegister extends AppCompatActivity {
                             //Check if user got registered successfully
                             if (response.getInt(KEY_STATUS) == 0) {
                                 //Set the user session
-                                session.loginUser(username,fullName,Email,Phonenumber,course);
+                                session.loginUser(username,fullName,Email,Phonenumber,course,Address,Location,Experience,InstitutionName);
                                 loadDashboard();
 
                             }else if(response.getInt(KEY_STATUS) == 1){

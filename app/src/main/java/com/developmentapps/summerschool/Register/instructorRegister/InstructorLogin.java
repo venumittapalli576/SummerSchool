@@ -16,6 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
+import com.developmentapps.summerschool.Connection.NoConnectionPage;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.Register.memberRegister.LoginActivity;
 import com.developmentapps.summerschool.activity.MainActivity;
@@ -36,6 +38,10 @@ public class InstructorLogin extends AppCompatActivity implements
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_COURSE="Course";
+    private static final String KEY_ADDRESS="Address";
+    private static final String KEY_Location="Location";
+    private static final String KEY_EXPERIENCE="Experience";
+    private static final String KEY_INSTITUTION="InstitutionName";
     private static final String KEY_EMPTY = "";
     private EditText inUsername;
     private EditText inPassword;
@@ -84,11 +90,16 @@ public class InstructorLogin extends AppCompatActivity implements
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Retrieve the data entered in the edit texts
-                username = inUsername.getText().toString().toLowerCase().trim();
-                password = inPassword.getText().toString().trim();
-                if (validateInputs()) {
-                    login();
+                if (ConnectionCheck.connection) {
+                    //Retrieve the data entered in the edit texts
+                    username = inUsername.getText().toString().toLowerCase().trim();
+                    password = inPassword.getText().toString().trim();
+                    if (validateInputs()) {
+                        login();
+                    }
+                }else {
+                    Intent i=new Intent(InstructorLogin.this, NoConnectionPage.class);
+                    startActivity(i);
                 }
             }
         });
@@ -137,7 +148,7 @@ public class InstructorLogin extends AppCompatActivity implements
                             //Check if user got logged in successfully
 
                             if (response.getInt(KEY_STATUS) == 0) {
-                                session.loginUser(username,response.getString(KEY_FULL_NAME),response.getString(KEY_EMAIL),response.getString(KEY_PHONENUMBER),response.getString(KEY_COURSE));
+                                session.loginUser(username,response.getString(KEY_FULL_NAME),response.getString(KEY_EMAIL),response.getString(KEY_PHONENUMBER),response.getString(KEY_COURSE),response.getString(KEY_ADDRESS),response.getString(KEY_Location),response.getString(KEY_EXPERIENCE),response.getString(KEY_INSTITUTION));
                                 loadDashboard();
 
                             }else{

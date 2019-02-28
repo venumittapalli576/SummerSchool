@@ -1,15 +1,23 @@
 package com.developmentapps.summerschool.course;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.other.HttpHandler;
 
@@ -22,13 +30,14 @@ import java.util.HashMap;
 
 public class AbacusDetails extends AppCompatActivity {
 
+    private CoordinatorLayout coordinatorLayout;
     private String TAG = AbacusDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/AbacusDetails.php";
+    private static String url = "http://192.168.43.80/summerportal/viewdetails/AbacusDetails.php";
 
     ArrayList<HashMap<String, String>> AbacusList;
 
@@ -39,8 +48,36 @@ public class AbacusDetails extends AppCompatActivity {
 
         AbacusList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        if (ConnectionCheck.connection)
+        {
+            new GetDetails().execute();
+        }else{
 
-        new GetDetails().execute();
+            //Toast toast = Toast.makeText(getApplicationContext(), "No connection ", Toast.LENGTH_LONG); toast.show();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+
+            // Changing message text color
+            snackbar.setActionTextColor(Color.RED);
+
+            // Changing action button text color
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.YELLOW);
+
+            snackbar.show();
+        }
+
+
     }
 
     protected class GetDetails extends AsyncTask<Void, Void, Void> {

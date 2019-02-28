@@ -62,7 +62,7 @@
         android:inputType="phone"
         android:padding="8dp" />
         <EditText
-
+            android:id="@+id/inaddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -80,7 +80,7 @@
         android:inputType="text"
         android:padding="8dp" />
         <EditText
-
+            android:id="@+id/ininstitution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -89,7 +89,7 @@
             android:inputType="text"
             android:padding="10dp" />
         <EditText
-
+            android:id="@+id/inlocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -98,13 +98,13 @@
             android:inputType="text"
             android:padding="10dp" />
         <EditText
-
+            android:id="@+id/inexperience"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@android:color/white"
             android:hint="experience"
-            android:inputType="text"
+            android:inputType="number"
             android:padding="10dp" />
 
 
