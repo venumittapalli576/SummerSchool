@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -36,6 +37,7 @@ public class EnglishDetails extends AppCompatActivity {
     private ListView lv;
     ListAdapter adapter;
     private CoordinatorLayout coordinatorLayout;
+    Button english;
 
     private static String url = "http://192.168.43.80/summerportal/viewdetails/eg.php";
 
@@ -45,6 +47,7 @@ public class EnglishDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_english_details);
+
 
         EnglishList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
@@ -179,5 +182,8 @@ public class EnglishDetails extends AppCompatActivity {
             lv.setAdapter(adapter);
 
         }
+
+
     }
+
 }

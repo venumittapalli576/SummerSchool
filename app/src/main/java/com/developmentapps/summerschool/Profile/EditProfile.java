@@ -61,8 +61,9 @@ public class EditProfile extends AppCompatActivity {
     private String Address;
     private String Location;
     private ProgressDialog pDialog;
+    Button update;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
-    private String register_url = "http://192.168.1.7/summerportal/update.php";
+    private String register_url = "http://192.168.43.108/summerportal/update.php";
     private SessionHandler session;
 
     @Override
@@ -71,23 +72,23 @@ public class EditProfile extends AppCompatActivity {
         session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_edit_profile);
 
-        etUsername = findViewById(R.id.etUsername);
+        etUsername = findViewById(R.id.etusername);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etFullName = findViewById(R.id.etFullName);
-        etEmail = findViewById(R.id.etEmail);
-        etPhonenumber=findViewById(R.id.etPhonenumber);
+        etEmail = findViewById(R.id.etmail);
+        etPhonenumber=findViewById(R.id.etphone);
         etFathername=findViewById(R.id.etFathername);
         etAge=findViewById(R.id.etAge);
         etIntesteredcourse=findViewById(R.id.etSelectedcourse);
         etAddress=findViewById(R.id.etAddress);
         etLocation=findViewById(R.id.etLocation);
 
-        Button register = findViewById(R.id.btnRegister);
+       update = findViewById(R.id.btnUpdate);
 
 
 
-        register.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
@@ -103,7 +104,7 @@ public class EditProfile extends AppCompatActivity {
                 Address=etAddress.getText().toString().trim();
                 Location=etLocation.getText().toString().trim();
                 if (validateInputs()) {
-                    registerUser();
+                    UpdateUser();
                 }
 
             }
@@ -133,7 +134,7 @@ public class EditProfile extends AppCompatActivity {
 
     }
 
-    private void registerUser() {
+    private void UpdateUser() {
         displayLoader();
         JSONObject request = new JSONObject();
         try {
@@ -200,12 +201,7 @@ public class EditProfile extends AppCompatActivity {
      * @return
      */
     private boolean validateInputs() {
-        if (KEY_EMPTY.equals(fullName)) {
-            etFullName.setError("Full Name cannot be empty");
-            etFullName.requestFocus();
-            return false;
 
-        }
         if (KEY_EMPTY.equals(username)) {
             etUsername.setError("Username cannot be empty");
             etUsername.requestFocus();
@@ -216,28 +212,7 @@ public class EditProfile extends AppCompatActivity {
             etEmail.requestFocus();
             return false;
         }
-        if (KEY_EMPTY.equals(Phonenumber)) {
-            etPhonenumber.setError("Phonenumber cannot be empty");
-            etPhonenumber.requestFocus();
-            return false;
-        }
 
-        if (KEY_EMPTY.equals(password)) {
-            etPassword.setError("Password cannot be empty");
-            etPassword.requestFocus();
-            return false;
-        }
-
-        if (KEY_EMPTY.equals(confirmPassword)) {
-            etConfirmPassword.setError("Confirm Password cannot be empty");
-            etConfirmPassword.requestFocus();
-            return false;
-        }
-        if (!password.equals(confirmPassword)) {
-            etConfirmPassword.setError("Password and Confirm Password does not match");
-            etConfirmPassword.requestFocus();
-            return false;
-        }
 
         return true;
     }

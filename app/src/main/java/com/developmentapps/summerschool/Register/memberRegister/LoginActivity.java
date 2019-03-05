@@ -1,10 +1,14 @@
 package com.developmentapps.summerschool.Register.memberRegister;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +37,8 @@ public class LoginActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener {
 
     String[] Login = {"Student", "Instructor"};
+
+
 
 
     private static final String KEY_STATUS = "status";
@@ -80,6 +86,16 @@ public class LoginActivity extends AppCompatActivity implements
 
         Button register = findViewById(R.id.btnLoginRegister);
         Button login = findViewById(R.id.btnLogin);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(LoginActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+
+        }
+
+
+
+
 
         //Launch Registration screen when Register Button is clicked
         register.setOnClickListener(new View.OnClickListener() {

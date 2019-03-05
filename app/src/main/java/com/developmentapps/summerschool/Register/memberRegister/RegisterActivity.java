@@ -2,11 +2,18 @@ package com.developmentapps.summerschool.Register.memberRegister;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
@@ -30,9 +37,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.SecureRandom;
+import java.util.List;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener {
+        AdapterView.OnItemSelectedListener , LocationListener {
+
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+
+    LocationManager locationManager;
 
 
     String[] SGender = {"Male", "Female", "Other"};
@@ -77,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity implements
     private String Gender;
     private ProgressDialog pDialog;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
-    private String register_url = "http://192.168.43.80/summerportal/register.php";
+    private String register_url = "http://192.168.43.240/summerportal/register.php";
     private SessionHandler session;
 
     @Override
@@ -85,6 +98,13 @@ public class RegisterActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_register);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, MY_PERMISSIONS_REQUEST_SEND_SMS);
+        }
+
 
 
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
@@ -112,6 +132,8 @@ public class RegisterActivity extends AppCompatActivity implements
 
         Button login = findViewById(R.id.btnRegisterLogin);
         Button register = findViewById(R.id.btnRegister);
+
+        getLocation();
 
         //Launch Login screen when Login Button is clicked
         login.setOnClickListener(new View.OnClickListener() {
@@ -228,8 +250,8 @@ public class RegisterActivity extends AppCompatActivity implements
             Toast.makeText(this,"Message sent...",Toast.LENGTH_LONG).show();
 
 
-        } else {
-            Toast.makeText(this, "enable all permissions", Toast.LENGTH_LONG).show();
+       } else {
+           Toast.makeText(this, "enable all permissions", Toast.LENGTH_LONG).show();
         }
 
     }
@@ -377,6 +399,46 @@ public class RegisterActivity extends AppCompatActivity implements
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+        //locationText.setText("Latitude: " + location.getLatitude() + "\n Longitude: " + location.getLongitude());
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<android.location.Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            etAddress.setText(etAddress.getText() + "\n"+addresses.get(0).getAddressLine(0)+", "+
+                    addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2));
+        }catch(Exception e)
+        {
+
+        }
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        Toast.makeText(RegisterActivity.this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
 
     }
 }
