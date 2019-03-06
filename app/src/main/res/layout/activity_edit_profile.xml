@@ -55,20 +55,36 @@
         android:layout_gravity="center"
         android:layout_marginTop="45dp"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/etusername"
-
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:hint="@string/username"
-            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_person_black_24dp" />
+
+            <TextView
+                android:id="@+id/etusername"
+
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:hint="@string/username"
+                android:paddingLeft="20dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
             android:paddingLeft="25dp">
 
             <ImageView
@@ -82,18 +98,10 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
                 android:hint="gmail"
+                android:paddingLeft="20dp"
                 android:textStyle="bold" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/gmailedit"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignEnd="@+id/imageview_account_profile"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_create_black_24dp"
-                app:backgroundTint="@color/colorPrimary" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,24 +121,18 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingLeft="20dp"
                 android:hint="Phone"
+                android:paddingLeft="20dp"
                 android:textStyle="bold" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/Phonenumberedit"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_alignEnd="@+id/imageview_account_profile"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_create_black_24dp"
-                app:backgroundTint="@color/colorPrimary" />
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
+        android:layout_marginTop="25dp"
         android:id="@+id/btnUpdate"
+        android:background="@drawable/buttonstyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
