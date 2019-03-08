@@ -28,7 +28,7 @@ public class HindiDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/HindiDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/HindiDetails.php";
 
     ArrayList<HashMap<String, String>> HindiList;
 

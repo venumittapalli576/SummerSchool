@@ -39,7 +39,7 @@ public class EnglishDetails extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     Button english;
 
-    private static String url = "http://192.168.43.80/summerportal/viewdetails/eg.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/eg.php";
 
     ArrayList<HashMap<String, String>> EnglishList;
 

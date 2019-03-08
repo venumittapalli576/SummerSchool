@@ -37,7 +37,7 @@ public class AbacusDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.80/summerportal/viewdetails/AbacusDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/AbacusDetails.php";
 
     ArrayList<HashMap<String, String>> AbacusList;
 

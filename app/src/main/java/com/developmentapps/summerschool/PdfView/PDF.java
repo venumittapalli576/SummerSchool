@@ -141,7 +141,7 @@ public class PDF extends AppCompatActivity {
     Our HTTP Client
      */
     public static class JSONDownloader {
-        private static final String PDF_SITE_URL = "http://192.168.43.80/pdfstar";
+        private static final String PDF_SITE_URL = "http://192.168.43.240/pdfstar";
         private final Context c;
         private GridViewAdapter adapter;
 

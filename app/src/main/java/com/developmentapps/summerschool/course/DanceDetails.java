@@ -28,7 +28,7 @@ public class DanceDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/DanceDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/DanceDetails.php";
 
     ArrayList<HashMap<String, String>> DanceList;
 

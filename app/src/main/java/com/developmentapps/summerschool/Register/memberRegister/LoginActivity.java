@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements
     private String password;
     private ProgressDialog pDialog;
     //private String login_url = "http://172.168.2.78/summerportal/login.php";
-    private String login_url = "http://192.168.43.80/summerportal/login.php";
+    private String login_url = "http://192.168.43.240/summerportal/login.php";
     private SessionHandler session;
 
     @Override

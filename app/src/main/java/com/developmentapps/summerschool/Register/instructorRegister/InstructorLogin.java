@@ -48,7 +48,7 @@ public class InstructorLogin extends AppCompatActivity implements
     private String username;
     private String password;
     private ProgressDialog pDialog;
-    private String login_url = "http://192.168.43.1.7/instructor/login.php";
+    private String login_url = "http://192.168.43.240/instructor/login.php";
     private SessionHandler session;
 
     @Override

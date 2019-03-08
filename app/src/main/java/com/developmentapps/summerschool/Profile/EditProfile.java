@@ -1,6 +1,12 @@
 package com.developmentapps.summerschool.Profile;
 
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -8,9 +14,11 @@ import com.developmentapps.summerschool.R;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +48,9 @@ public class EditProfile extends AppCompatActivity {
     private static final String KEY_LOCATION = "Location";
     private static final String KEY_PHONENUMBER = "Phonenumber";
     private static final String KEY_EMPTY = "";
+
+    private static int RESULT_LOAD_IMAGE = 1;
+
     private TextView etUsername;
     private EditText etPassword;
     private EditText etConfirmPassword;
@@ -63,18 +74,29 @@ public class EditProfile extends AppCompatActivity {
     private String Address;
     private String Location;
     private ProgressDialog pDialog;
+
     Button update;
     //private String register_url = "http://172.168.2.78/summerportal/register.php";
     private String register_url = "http://192.168.43.240/summerportal/update.php";
     private SessionHandler session;
     User user;
-
+    private FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_edit_profile);
+        fab=findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
+            }
+        });
         user=session.getUserDetails();
 
         etUsername = findViewById(R.id.etusername);
@@ -85,8 +107,8 @@ public class EditProfile extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         etFullName = findViewById(R.id.etFullName);*/
 
-       /* etPhonenumber=findViewById(R.id.etphone);
-        etFathername=findViewById(R.id.etFathername);
+        etPhonenumber=findViewById(R.id.etphone);
+       /* etFathername=findViewById(R.id.etFathername);
         etAge=findViewById(R.id.etAge);
         etIntesteredcourse=findViewById(R.id.etSelectedcourse);
         etAddress=findViewById(R.id.etAddress);
@@ -105,8 +127,8 @@ public class EditProfile extends AppCompatActivity {
                 confirmPassword = etConfirmPassword.getText().toString().trim();
                 fullName = etFullName.getText().toString().trim();*/
                 Email=etEmail.getText().toString().trim();
-               /* Phonenumber=etPhonenumber.getText().toString().trim();
-                Fathername=etFathername.getText().toString().trim();
+               Phonenumber=etPhonenumber.getText().toString().trim();
+                /*Fathername=etFathername.getText().toString().trim();
                 Age=etAge.getText().toString().trim();
                 Intesteredcourse=etIntesteredcourse.getText().toString().trim();
                 Address=etAddress.getText().toString().trim();
@@ -149,8 +171,8 @@ public class EditProfile extends AppCompatActivity {
            // request.put(KEY_PASSWORD, password);
            // request.put(KEY_FULL_NAME, fullName);
             request.put(KEY_EMAIL, Email);
-           /* request.put(KEY_PHONENUMBER, Phonenumber);
-            request.put(KEY_FATHERNAME, Fathername);
+           request.put(KEY_PHONENUMBER, Phonenumber);
+            /*request.put(KEY_FATHERNAME, Fathername);
             request.put(KEY_AGE, Age);
             request.put(KEY_INTERESTEDCOURSE, Intesteredcourse);
             request.put(KEY_ADDRESS, Address);
@@ -168,7 +190,7 @@ public class EditProfile extends AppCompatActivity {
                             //Check if user got registered successfully
                             if (response.getInt(KEY_STATUS) != 0) {
                                 //Set the user session
-                                session.loginUser(username, response.getString(KEY_FULL_NAME), Email, response.getString(KEY_PHONENUMBER), response.getString(KEY_INTERESTEDCOURSE),response.getString(KEY_FATHERNAME),response.getString(KEY_LOCATION),response.getString(KEY_ADDRESS),response.getString(KEY_AGE));
+                                session.loginUser(username, response.getString(KEY_FULL_NAME), Email, Phonenumber, response.getString(KEY_INTERESTEDCOURSE),response.getString(KEY_FATHERNAME),response.getString(KEY_LOCATION),response.getString(KEY_ADDRESS),response.getString(KEY_AGE));
                                 loadDashboard();
 
                             }else{
@@ -217,4 +239,30 @@ public class EditProfile extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+
+            ImageView imageView = (ImageView) findViewById(R.id.imageview_account_profile);
+            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+        }
+
+
+    }
+
 }

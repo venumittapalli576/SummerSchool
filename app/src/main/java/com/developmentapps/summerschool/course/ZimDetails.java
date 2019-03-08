@@ -28,7 +28,7 @@ public class ZimDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/ZimDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/ZimDetails.php";
 
     ArrayList<HashMap<String, String>> ZimList;
 

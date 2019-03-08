@@ -27,15 +27,7 @@ public class ViewProfile extends AppCompatActivity {
         username=findViewById(R.id.username);
         mail=findViewById(R.id.mail);
         //phone=findViewById(R.id.phone);
-        FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(ViewProfile.this,EditProfile.class);
-                startActivity(i);
 
-            }
-        });
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

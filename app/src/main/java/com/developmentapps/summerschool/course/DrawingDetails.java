@@ -28,7 +28,7 @@ public class DrawingDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/DrawingDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/DrawingDetails.php";
 
     ArrayList<HashMap<String, String>> DrawingList;
 

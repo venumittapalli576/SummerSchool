@@ -4,7 +4,7 @@
     package="com.developmentapps.summerschool">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -21,7 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Register.memberRegister.OTPactivity"></activity>
+        <activity android:name=".Register.instructorRegister.Detailspage"></activity>
+        <activity android:name=".activity.MyCourses" />
+        <activity android:name=".Register.memberRegister.OTPactivity" />
         <activity android:name=".Connection.NoConnectionPage" />
 
         <meta-data

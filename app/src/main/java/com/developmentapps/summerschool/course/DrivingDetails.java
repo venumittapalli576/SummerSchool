@@ -28,7 +28,7 @@ public class DrivingDetails extends AppCompatActivity {
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.142/summerportal/viewdetails/DrivingDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/DrivingDetails.php";
 
     ArrayList<HashMap<String, String>> DrivingList;
 

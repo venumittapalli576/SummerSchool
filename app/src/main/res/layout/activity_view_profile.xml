@@ -24,15 +24,7 @@
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/ic_launcher" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignEnd="@+id/imageview_account_profile"
-                android:layout_marginTop="20dp"
-                android:id="@+id/floatingActionButton"
-                app:backgroundTint="@color/colorPrimary"
-                android:src="@drawable/ic_create_black_24dp"/>
+
 
 
 
