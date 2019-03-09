@@ -420,6 +420,7 @@ public class RegisterActivity extends AppCompatActivity implements
             List<android.location.Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             etAddress.setText(etAddress.getText() + "\n"+addresses.get(0).getAddressLine(0)+", "+
                     addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2));
+            etLocation.setText(addresses.get(0).getAddressLine(1));
         }catch(Exception e)
         {
 

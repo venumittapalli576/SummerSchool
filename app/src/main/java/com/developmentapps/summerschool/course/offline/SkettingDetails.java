@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -20,24 +20,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ComputerlearningDetails extends AppCompatActivity {
+public class SkettingDetails extends AppCompatActivity {
 
-    private String TAG = ComputerlearningDetails.class.getSimpleName();
+    private String TAG = SkettingDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/ComputerLearningDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/SkettingDetails.php";
 
-    ArrayList<HashMap<String, String>> ComputerlearningList;
+    ArrayList<HashMap<String, String>> SkettingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_computerlearning_details);
+        setContentView(R.layout.activity_sketting_details);
 
-        ComputerlearningList = new ArrayList<>();
+        SkettingList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
 
         new GetDetails().execute();
@@ -49,7 +49,7 @@ public class ComputerlearningDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(ComputerlearningDetails.this);
+            pDialog = new ProgressDialog(SkettingDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -92,7 +92,7 @@ public class ComputerlearningDetails extends AppCompatActivity {
                         contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
-                        ComputerlearningList.add(contact);
+                        SkettingList.add(contact);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,7 +132,7 @@ public class ComputerlearningDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(ComputerlearningDetails.this, ComputerlearningList, R.layout.activity_list_item,
+            adapter = new SimpleAdapter(SkettingDetails.this, SkettingList, R.layout.activity_list_item,
                     new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);

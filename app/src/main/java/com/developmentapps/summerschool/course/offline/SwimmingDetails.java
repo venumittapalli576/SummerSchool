@@ -1,28 +1,17 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.developmentapps.summerschool.Connection.ConnectionCheck;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.other.HttpHandler;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,56 +20,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EnglishDetails extends AppCompatActivity {
-    private String TAG = EnglishDetails.class.getSimpleName();
+public class SwimmingDetails extends AppCompatActivity {
+
+    private String TAG = SwimmingDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
-    private CoordinatorLayout coordinatorLayout;
-    Button english;
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/eg.php";
 
-    ArrayList<HashMap<String, String>> EnglishList;
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/SwimmingDetails.php";
+
+    ArrayList<HashMap<String, String>> SwimmingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_english_details);
+        setContentView(R.layout.activity_swimming_details);
 
-
-        EnglishList = new ArrayList<>();
+        SwimmingList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
         new GetDetails().execute();
-
-        /*if (ConnectionCheck.connection == true) {
-            new GetDetails().execute();
-        }else{
-
-            //Toast toast = Toast.makeText(getApplicationContext(), "No connection ", Toast.LENGTH_LONG); toast.show();
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    });
-
-            // Changing message text color
-            snackbar.setActionTextColor(Color.RED);
-
-            // Changing action button text color
-            View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-
-            snackbar.show();
-        }*/
     }
 
     protected class GetDetails extends AsyncTask<Void, Void, Void> {
@@ -89,7 +49,7 @@ public class EnglishDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(EnglishDetails.this);
+            pDialog = new ProgressDialog(SwimmingDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -107,14 +67,13 @@ public class EnglishDetails extends AppCompatActivity {
 
             if (jsonStr != null) {
                 try {
-
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("contacts");
 
                     // looping through All Contacts
-                  for (int i = 0; i < contacts.length(); i++) {
+                    for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
 
                         String id = c.getString("user_id");
@@ -133,9 +92,8 @@ public class EnglishDetails extends AppCompatActivity {
                         contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
-                        EnglishList.add(contact);
+                        SwimmingList.add(contact);
                     }
-
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -145,8 +103,6 @@ public class EnglishDetails extends AppCompatActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
-
-
                         }
                     });
 
@@ -176,14 +132,11 @@ public class EnglishDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(EnglishDetails.this, EnglishList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "Phonenumber"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+            adapter = new SimpleAdapter(SwimmingDetails.this, SwimmingList, R.layout.activity_list_item,
+                    new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);
 
         }
-
-
     }
-
 }

@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -20,24 +20,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SkettingDetails extends AppCompatActivity {
+public class ZimDetails extends AppCompatActivity {
 
-    private String TAG = SkettingDetails.class.getSimpleName();
+    private String TAG = ZimDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/SkettingDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/ZimDetails.php";
 
-    ArrayList<HashMap<String, String>> SkettingList;
+    ArrayList<HashMap<String, String>> ZimList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sketting_details);
+        setContentView(R.layout.activity_zim_details);
 
-        SkettingList = new ArrayList<>();
+        ZimList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
 
         new GetDetails().execute();
@@ -49,7 +49,7 @@ public class SkettingDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(SkettingDetails.this);
+            pDialog = new ProgressDialog(ZimDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -92,7 +92,7 @@ public class SkettingDetails extends AppCompatActivity {
                         contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
-                        SkettingList.add(contact);
+                        ZimList.add(contact);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,7 +132,7 @@ public class SkettingDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(SkettingDetails.this, SkettingList, R.layout.activity_list_item,
+            adapter = new SimpleAdapter(ZimDetails.this, ZimList, R.layout.activity_list_item,
                     new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);

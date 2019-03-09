@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
-import com.developmentapps.summerschool.course.EnglishDetails;
+import com.developmentapps.summerschool.course.offline.EnglishDetails;
 
 
 public class NotificationsFragment extends ListFragment implements AdapterView.OnItemClickListener {

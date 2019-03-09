@@ -14,25 +14,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
-import com.developmentapps.summerschool.course.AbacusDetails;
-import com.developmentapps.summerschool.course.BankcoachingDetails;
-import com.developmentapps.summerschool.course.ComputerlearningDetails;
-import com.developmentapps.summerschool.course.DanceDetails;
-import com.developmentapps.summerschool.course.DrawingDetails;
-import com.developmentapps.summerschool.course.DrivingDetails;
-import com.developmentapps.summerschool.course.EnglishDetails;
-import com.developmentapps.summerschool.course.HindiDetails;
-import com.developmentapps.summerschool.course.MusicDetails;
-import com.developmentapps.summerschool.course.SkettingDetails;
-import com.developmentapps.summerschool.course.SwimmingDetails;
-import com.developmentapps.summerschool.course.YogaDetails;
-import com.developmentapps.summerschool.course.ZimDetails;
-
-import java.util.Map;
+import com.developmentapps.summerschool.course.offline.AbacusDetails;
+import com.developmentapps.summerschool.course.offline.BankcoachingDetails;
+import com.developmentapps.summerschool.course.offline.ComputerlearningDetails;
+import com.developmentapps.summerschool.course.offline.DanceDetails;
+import com.developmentapps.summerschool.course.offline.DrawingDetails;
+import com.developmentapps.summerschool.course.offline.DrivingDetails;
+import com.developmentapps.summerschool.course.offline.EnglishDetails;
+import com.developmentapps.summerschool.course.offline.HindiDetails;
+import com.developmentapps.summerschool.course.offline.MusicDetails;
+import com.developmentapps.summerschool.course.offline.SkettingDetails;
+import com.developmentapps.summerschool.course.offline.SwimmingDetails;
+import com.developmentapps.summerschool.course.offline.YogaDetails;
+import com.developmentapps.summerschool.course.offline.ZimDetails;
 
 /**
  * A simple {@link Fragment} subclass.

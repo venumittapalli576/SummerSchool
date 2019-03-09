@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -20,24 +20,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class YogaDetails extends AppCompatActivity {
+public class DanceDetails extends AppCompatActivity {
 
-    private String TAG = YogaDetails.class.getSimpleName();
+    private String TAG = DanceDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/YogaDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/DanceDetails.php";
 
-    ArrayList<HashMap<String, String>> YogaList;
+    ArrayList<HashMap<String, String>> DanceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yoga_details);
+        setContentView(R.layout.activity_dance_details);
 
-        YogaList = new ArrayList<>();
+        DanceList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
 
         new GetDetails().execute();
@@ -49,7 +49,7 @@ public class YogaDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(YogaDetails.this);
+            pDialog = new ProgressDialog(DanceDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -92,7 +92,7 @@ public class YogaDetails extends AppCompatActivity {
                         contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
-                       YogaList.add(contact);
+                        DanceList.add(contact);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,7 +132,7 @@ public class YogaDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(YogaDetails.this, YogaList, R.layout.activity_list_item,
+            adapter = new SimpleAdapter(DanceDetails.this, DanceList, R.layout.activity_list_item,
                     new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);

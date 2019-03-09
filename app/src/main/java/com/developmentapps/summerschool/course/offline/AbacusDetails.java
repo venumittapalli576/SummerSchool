@@ -1,15 +1,22 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.other.HttpHandler;
 
@@ -20,27 +27,56 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DanceDetails extends AppCompatActivity {
+public class AbacusDetails extends AppCompatActivity {
 
-    private String TAG = DanceDetails.class.getSimpleName();
+    private CoordinatorLayout coordinatorLayout;
+    private String TAG = AbacusDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/DanceDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/AbacusDetails.php";
 
-    ArrayList<HashMap<String, String>> DanceList;
+    ArrayList<HashMap<String, String>> AbacusList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dance_details);
+        setContentView(R.layout.activity_abacus_details);
 
-        DanceList = new ArrayList<>();
+        AbacusList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        if (ConnectionCheck.connection)
+        {
+            new GetDetails().execute();
+        }else{
 
-        new GetDetails().execute();
+            //Toast toast = Toast.makeText(getApplicationContext(), "No connection ", Toast.LENGTH_LONG); toast.show();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    });
+
+            // Changing message text color
+            snackbar.setActionTextColor(Color.RED);
+
+            // Changing action button text color
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.YELLOW);
+
+            snackbar.show();
+        }
+
+
     }
 
     protected class GetDetails extends AsyncTask<Void, Void, Void> {
@@ -49,7 +85,7 @@ public class DanceDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(DanceDetails.this);
+            pDialog = new ProgressDialog(AbacusDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -90,9 +126,8 @@ public class DanceDetails extends AppCompatActivity {
                         contact.put("name", name);
                         contact.put("email", email);
                         contact.put("Phonenumber", phonenumber);
-
                         // adding contact to contact list
-                        DanceList.add(contact);
+                        AbacusList.add(contact);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,7 +167,7 @@ public class DanceDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(DanceDetails.this, DanceList, R.layout.activity_list_item,
+            adapter = new SimpleAdapter(AbacusDetails.this, AbacusList, R.layout.activity_list_item,
                     new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);

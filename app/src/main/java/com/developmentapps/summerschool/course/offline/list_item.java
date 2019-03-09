@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

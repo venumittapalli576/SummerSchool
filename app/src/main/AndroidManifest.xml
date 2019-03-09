@@ -30,18 +30,18 @@
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
 
-        <activity android:name=".course.ZimDetails" />
-        <activity android:name=".course.DrivingDetails" />
-        <activity android:name=".course.YogaDetails" />
-        <activity android:name=".course.BankcoachingDetails" />
-        <activity android:name=".course.ComputerlearningDetails" />
-        <activity android:name=".course.AbacusDetails" />
-        <activity android:name=".course.SkettingDetails" />
-        <activity android:name=".course.SwimmingDetails" />
-        <activity android:name=".course.HindiDetails" />
-        <activity android:name=".course.DrawingDetails" />
-        <activity android:name=".course.MusicDetails" />
-        <activity android:name=".course.DanceDetails" />
+        <activity android:name=".course.offline.ZimDetails" />
+        <activity android:name=".course.offline.DrivingDetails" />
+        <activity android:name=".course.offline.YogaDetails" />
+        <activity android:name=".course.offline.BankcoachingDetails" />
+        <activity android:name=".course.offline.ComputerlearningDetails" />
+        <activity android:name=".course.offline.AbacusDetails" />
+        <activity android:name=".course.offline.SkettingDetails" />
+        <activity android:name=".course.offline.SwimmingDetails" />
+        <activity android:name=".course.offline.HindiDetails" />
+        <activity android:name=".course.offline.DrawingDetails" />
+        <activity android:name=".course.offline.MusicDetails" />
+        <activity android:name=".course.offline.DanceDetails" />
         <activity android:name=".VideoView" />
         <activity android:name=".activity.Splash">
             <intent-filter>
@@ -60,8 +60,8 @@
         <activity android:name=".other.Feedbackform" />
         <activity android:name=".Profile.ViewProfile" />
         <activity android:name=".Profile.EditProfile" />
-        <activity android:name=".course.EnglishDetails" />
-        <activity android:name=".course.list_item" />
+        <activity android:name=".course.offline.EnglishDetails" />
+        <activity android:name=".course.offline.list_item" />
         <activity android:name=".Register.instructorRegister.InstructorLogin" />
         <activity android:name=".Register.instructorRegister.InstructorRegister" /> <!-- Broadcast receiver declaration in manifest file and make sure to enable it -->
         <receiver android:name=".Connection.ConnectionCheck">

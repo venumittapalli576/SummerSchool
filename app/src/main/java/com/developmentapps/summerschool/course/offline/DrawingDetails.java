@@ -1,4 +1,4 @@
-package com.developmentapps.summerschool.course;
+package com.developmentapps.summerschool.course.offline;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -20,24 +20,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class SwimmingDetails extends AppCompatActivity {
+public class DrawingDetails extends AppCompatActivity {
 
-    private String TAG = SwimmingDetails.class.getSimpleName();
+    private String TAG = DrawingDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     ListAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/SwimmingDetails.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/DrawingDetails.php";
 
-    ArrayList<HashMap<String, String>> SwimmingList;
+    ArrayList<HashMap<String, String>> DrawingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_swimming_details);
+        setContentView(R.layout.activity_drawing_details);
 
-        SwimmingList = new ArrayList<>();
+        DrawingList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
 
         new GetDetails().execute();
@@ -49,7 +49,7 @@ public class SwimmingDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(SwimmingDetails.this);
+            pDialog = new ProgressDialog(DrawingDetails.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -92,7 +92,7 @@ public class SwimmingDetails extends AppCompatActivity {
                         contact.put("Phonenumber", phonenumber);
 
                         // adding contact to contact list
-                        SwimmingList.add(contact);
+                        DrawingList.add(contact);
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
@@ -132,7 +132,7 @@ public class SwimmingDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(SwimmingDetails.this, SwimmingList, R.layout.activity_list_item,
+            adapter = new SimpleAdapter(DrawingDetails.this, DrawingList, R.layout.activity_list_item,
                     new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
 
             lv.setAdapter(adapter);
