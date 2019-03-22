@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.developmentapps.summerschool.Connection.ConnectionCheck;
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.CustomAdapter;
 import com.developmentapps.summerschool.other.HttpHandler;
 
 import org.json.JSONArray;
@@ -33,10 +35,10 @@ public class AbacusDetails extends AppCompatActivity {
     private String TAG = AbacusDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
-    ListAdapter adapter;
+    CustomAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/AbacusDetails.php";
+    private static String url = "http://192.168.43.240/summerportal/viewdetails/eg.php";
 
     ArrayList<HashMap<String, String>> AbacusList;
 
@@ -46,9 +48,10 @@ public class AbacusDetails extends AppCompatActivity {
         setContentView(R.layout.activity_abacus_details);
 
         AbacusList = new ArrayList<>();
-        lv = (ListView) findViewById(R.id.list);
+        lv =findViewById(R.id.list);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        if (ConnectionCheck.connection)
+
+       if (ConnectionCheck.connection)
         {
             new GetDetails().execute();
         }else{
@@ -75,8 +78,6 @@ public class AbacusDetails extends AppCompatActivity {
 
             snackbar.show();
         }
-
-
     }
 
     protected class GetDetails extends AsyncTask<Void, Void, Void> {
@@ -116,6 +117,9 @@ public class AbacusDetails extends AppCompatActivity {
                         String name = c.getString("username");
                         String email = c.getString("Email");
                         String phonenumber = c.getString("Phonenumber");
+                        String Course=c.getString("Course");
+                        String Institutionname=c.getString("Institutionname");
+                        String Experiecnce=c.getString("Experiecnce");
 
 
                         // tmp hash map for single contact
@@ -124,11 +128,15 @@ public class AbacusDetails extends AppCompatActivity {
                         // adding each child node to HashMap key => value
                         contact.put("user_id", id);
                         contact.put("name", name);
+                        contact.put("Course",Course);
                         contact.put("email", email);
                         contact.put("Phonenumber", phonenumber);
+                        contact.put("Institutionname",Institutionname);
+                        contact.put("Experiecnce",Experiecnce);
                         // adding contact to contact list
                         AbacusList.add(contact);
                     }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -138,6 +146,8 @@ public class AbacusDetails extends AppCompatActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
+
+
                         }
                     });
 
@@ -167,11 +177,13 @@ public class AbacusDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(AbacusDetails.this, AbacusList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+            adapter = new CustomAdapter(getApplicationContext(), AbacusList, R.layout.activity_list_item,
+                    new String[]{"Institutionname","name", "email", "mobile","course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.Course,R.id.Experience});
 
             lv.setAdapter(adapter);
-
         }
+
+
     }
+
 }

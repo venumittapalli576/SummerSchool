@@ -12,17 +12,16 @@
 
     <!-- Navigation Drawer menu labels -->
     <string name="nav_home">Home</string>
-    <string name="nav_photos">Offline Courses</string>
-    <string name="nav_Offline_Courses">Offline Courses</string>
-    <string name="nav_notifications">Online Courses</string>
+    <string name="nav_photos">Online Courses</string>
+    <string name="nav_notifications">Offline Courses</string>
     <string name="nav_settings">Settings</string>
     <string name="nav_about_us">About Us</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
         <item>Home</item>
-        <item>Photos</item>
-        <item>Notifications</item>
+        <item>Online Courses</item>
+        <item>Offline Courses</item>
         <item>Settings</item>
     </string-array>
 
@@ -80,4 +79,15 @@
         <item>Driving</item>
         <item>Zim</item>
     </string-array>
+
+    <string-array name="OnlineCourses">
+        <item>Java</item>
+        <item>Bank</item>
+        <item> C Programming</item>
+        <item>English</item>
+        <item>PHP</item>
+        <item>C++ language</item>
+        <item>SQL</item>
+    </string-array>
+
 </resources>

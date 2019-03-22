@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.CustomAdapter;
 import com.developmentapps.summerschool.other.HttpHandler;
 
 import org.json.JSONArray;
@@ -25,10 +26,10 @@ public class YogaDetails extends AppCompatActivity {
     private String TAG = YogaDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
-    ListAdapter adapter;
+    CustomAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/YogaDetails.php";
+    private static String url = "http://192.168.43.240/summerportal/viewdetails/YogaDetails.php";
 
     ArrayList<HashMap<String, String>> YogaList;
 
@@ -80,6 +81,9 @@ public class YogaDetails extends AppCompatActivity {
                         String name = c.getString("username");
                         String email = c.getString("Email");
                         String phonenumber = c.getString("Phonenumber");
+                        String Course=c.getString("Course");
+                        String Institutionname=c.getString("Institutionname");
+                        String Experiecnce=c.getString("Experiecnce");
 
 
                         // tmp hash map for single contact
@@ -88,12 +92,15 @@ public class YogaDetails extends AppCompatActivity {
                         // adding each child node to HashMap key => value
                         contact.put("user_id", id);
                         contact.put("name", name);
+                        contact.put("Course",Course);
                         contact.put("email", email);
                         contact.put("Phonenumber", phonenumber);
-
+                        contact.put("Institutionname",Institutionname);
+                        contact.put("Experiecnce",Experiecnce);
                         // adding contact to contact list
-                       YogaList.add(contact);
+                        YogaList.add(contact);
                     }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -103,6 +110,8 @@ public class YogaDetails extends AppCompatActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
+
+
                         }
                     });
 
@@ -132,11 +141,13 @@ public class YogaDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(YogaDetails.this, YogaList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+            adapter = new CustomAdapter(getApplicationContext(), YogaList, R.layout.activity_list_item,
+                    new String[]{"Institutionname","name", "email", "mobile","course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.Course,R.id.Experience});
 
             lv.setAdapter(adapter);
-
         }
+
+
     }
+
 }

@@ -418,9 +418,8 @@ public class RegisterActivity extends AppCompatActivity implements
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<android.location.Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            etAddress.setText(etAddress.getText() + "\n"+addresses.get(0).getAddressLine(0)+", "+
-                    addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2));
-            etLocation.setText(addresses.get(0).getAddressLine(1));
+            etAddress.setText(etAddress.getText() + "\n"+addresses.get(0).getAddressLine(0)+", "+ addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2));
+            etLocation.setText(etLocation.getText()+"\n"+addresses.get(0).getAddressLine(2));
         }catch(Exception e)
         {
 

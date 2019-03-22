@@ -11,6 +11,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.CustomAdapter;
 import com.developmentapps.summerschool.other.HttpHandler;
 
 import org.json.JSONArray;
@@ -25,10 +26,10 @@ public class BankcoachingDetails extends AppCompatActivity {
     private String TAG = BankcoachingDetails.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
-    ListAdapter adapter;
+    CustomAdapter adapter;
 
 
-    private static String url = "http://192.168.43.81/summerportal/viewdetails/bankcouchingDetails.php";
+    private static String url = "http://192.168.43.240/summerportal/viewdetails/bankcouchingDetails.php";
 
     ArrayList<HashMap<String, String>> BankcoachingList;
 
@@ -72,7 +73,6 @@ public class BankcoachingDetails extends AppCompatActivity {
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("contacts");
 
-                    // looping through All Contacts
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
 
@@ -80,6 +80,9 @@ public class BankcoachingDetails extends AppCompatActivity {
                         String name = c.getString("username");
                         String email = c.getString("Email");
                         String phonenumber = c.getString("Phonenumber");
+                        String Course=c.getString("Course");
+                        String Institutionname=c.getString("Institutionname");
+                        String Experiecnce=c.getString("Experiecnce");
 
 
                         // tmp hash map for single contact
@@ -88,12 +91,15 @@ public class BankcoachingDetails extends AppCompatActivity {
                         // adding each child node to HashMap key => value
                         contact.put("user_id", id);
                         contact.put("name", name);
+                        contact.put("Course",Course);
                         contact.put("email", email);
                         contact.put("Phonenumber", phonenumber);
-
+                        contact.put("Institutionname",Institutionname);
+                        contact.put("Experiecnce",Experiecnce);
                         // adding contact to contact list
                         BankcoachingList.add(contact);
                     }
+
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -103,6 +109,8 @@ public class BankcoachingDetails extends AppCompatActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
+
+
                         }
                     });
 
@@ -132,12 +140,13 @@ public class BankcoachingDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(BankcoachingDetails.this, BankcoachingList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "mobile"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+            adapter = new CustomAdapter(getApplicationContext(),BankcoachingList, R.layout.activity_list_item,
+                    new String[]{"Institutionname","name", "email", "mobile","course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.Course,R.id.Experience});
 
             lv.setAdapter(adapter);
-
         }
-    }
-}
 
+
+    }
+
+}

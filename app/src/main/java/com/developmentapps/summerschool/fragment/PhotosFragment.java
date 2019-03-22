@@ -30,6 +30,13 @@ import com.developmentapps.summerschool.course.offline.SkettingDetails;
 import com.developmentapps.summerschool.course.offline.SwimmingDetails;
 import com.developmentapps.summerschool.course.offline.YogaDetails;
 import com.developmentapps.summerschool.course.offline.ZimDetails;
+import com.developmentapps.summerschool.course.online.JavaDetails;
+import com.developmentapps.summerschool.course.online.OnlineBank;
+import com.developmentapps.summerschool.course.online.OnlineComputerProgramming;
+import com.developmentapps.summerschool.course.online.OnlineEnglish;
+import com.developmentapps.summerschool.course.online.OnlinePHP;
+import com.developmentapps.summerschool.course.online.SqlLangauage;
+import com.developmentapps.summerschool.course.online.cPlusLangauge;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +96,7 @@ public class PhotosFragment extends ListFragment implements AdapterView.OnItemCl
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.OfflineCourses, android.R.layout.simple_list_item_1);
+                R.array.OnlineCourses, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
@@ -146,43 +153,25 @@ public class PhotosFragment extends ListFragment implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
         if (position == 0) {
-            Intent i = new Intent(getActivity(), DanceDetails.class);
+            Intent i = new Intent(getActivity(), JavaDetails.class);
             startActivity(i);
         } else if (position == 1) {
-            Intent i = new Intent(getActivity(), MusicDetails.class);
+            Intent i = new Intent(getActivity(), OnlineBank.class);
             startActivity(i);
         } else if (position == 2) {
-            Intent i = new Intent(getActivity(), DrawingDetails.class);
+            Intent i = new Intent(getActivity(), OnlineComputerProgramming.class);
             startActivity(i);
         } else if (position == 3) {
-            Intent i = new Intent(getActivity(), HindiDetails.class);
+            Intent i = new Intent(getActivity(), OnlineEnglish.class);
             startActivity(i);
         } else if (position == 4) {
-            Intent i = new Intent(getActivity(), EnglishDetails.class);
+            Intent i = new Intent(getActivity(), OnlinePHP.class);
             startActivity(i);
         } else if (position == 5) {
-            Intent i = new Intent(getActivity(), SwimmingDetails.class);
+            Intent i = new Intent(getActivity(), cPlusLangauge.class);
             startActivity(i);
         } else if (position == 6) {
-            Intent i = new Intent(getActivity(), SkettingDetails.class);
-            startActivity(i);
-        } else if (position == 7) {
-            Intent i = new Intent(getActivity(), AbacusDetails.class);
-            startActivity(i);
-        } else if (position == 8) {
-            Intent i = new Intent(getActivity(), ComputerlearningDetails.class);
-            startActivity(i);
-        } else if (position == 9) {
-            Intent i = new Intent(getActivity(), BankcoachingDetails.class);
-            startActivity(i);
-        } else if (position == 10) {
-            Intent i = new Intent(getActivity(), YogaDetails.class);
-            startActivity(i);
-        } else if (position == 11) {
-            Intent i = new Intent(getActivity(), DrivingDetails.class);
-            startActivity(i);
-        } else if (position == 12) {
-            Intent i = new Intent(getActivity(), ZimDetails.class);
+            Intent i = new Intent(getActivity(),SqlLangauage .class);
             startActivity(i);
         }
     }

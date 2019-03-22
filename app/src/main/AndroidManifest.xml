@@ -21,7 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Register.instructorRegister.Detailspage"></activity>
+        <activity android:name=".course.coursePage"></activity>
+        <activity android:name=".course.online.SqlLangauage" />
+        <activity android:name=".course.online.cPlusLangauge" />
+        <activity android:name=".course.online.OnlinePHP" />
+        <activity android:name=".course.online.OnlineBank" />
+        <activity android:name=".course.online.OnlineEnglish" />
+        <activity android:name=".course.online.OnlineComputerProgramming" />
+        <activity android:name=".course.online.JavaDetails" />
+        <activity android:name=".Register.instructorRegister.Detailspage" />
         <activity android:name=".activity.MyCourses" />
         <activity android:name=".Register.memberRegister.OTPactivity" />
         <activity android:name=".Connection.NoConnectionPage" />

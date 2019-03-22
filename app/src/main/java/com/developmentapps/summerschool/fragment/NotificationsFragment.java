@@ -16,7 +16,26 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.offline.AbacusDetails;
+import com.developmentapps.summerschool.course.offline.BankcoachingDetails;
+import com.developmentapps.summerschool.course.offline.ComputerlearningDetails;
+import com.developmentapps.summerschool.course.offline.DanceDetails;
+import com.developmentapps.summerschool.course.offline.DrawingDetails;
+import com.developmentapps.summerschool.course.offline.DrivingDetails;
 import com.developmentapps.summerschool.course.offline.EnglishDetails;
+import com.developmentapps.summerschool.course.offline.HindiDetails;
+import com.developmentapps.summerschool.course.offline.MusicDetails;
+import com.developmentapps.summerschool.course.offline.SkettingDetails;
+import com.developmentapps.summerschool.course.offline.SwimmingDetails;
+import com.developmentapps.summerschool.course.offline.YogaDetails;
+import com.developmentapps.summerschool.course.offline.ZimDetails;
+import com.developmentapps.summerschool.course.online.JavaDetails;
+import com.developmentapps.summerschool.course.online.OnlineBank;
+import com.developmentapps.summerschool.course.online.OnlineComputerProgramming;
+import com.developmentapps.summerschool.course.online.OnlineEnglish;
+import com.developmentapps.summerschool.course.online.OnlinePHP;
+import com.developmentapps.summerschool.course.online.SqlLangauage;
+import com.developmentapps.summerschool.course.online.cPlusLangauge;
 
 
 public class NotificationsFragment extends ListFragment implements AdapterView.OnItemClickListener {
@@ -117,15 +136,45 @@ public class NotificationsFragment extends ListFragment implements AdapterView.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
 
-        /*if(position==){
-            Intent i = new Intent(getActivity(), .class);
+        if (position == 0) {
+            Intent i = new Intent(getActivity(), DanceDetails.class);
             startActivity(i);
-            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-        }*/
-        if (position == 4) {
+        } else if (position == 1) {
+            Intent i = new Intent(getActivity(), MusicDetails.class);
+            startActivity(i);
+        } else if (position == 2) {
+            Intent i = new Intent(getActivity(), DrawingDetails.class);
+            startActivity(i);
+        } else if (position == 3) {
+            Intent i = new Intent(getActivity(), HindiDetails.class);
+            startActivity(i);
+        } else if (position == 4) {
             Intent i = new Intent(getActivity(), EnglishDetails.class);
             startActivity(i);
-            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+        } else if (position == 5) {
+            Intent i = new Intent(getActivity(), SwimmingDetails.class);
+            startActivity(i);
+        } else if (position == 6) {
+            Intent i = new Intent(getActivity(), SkettingDetails.class);
+            startActivity(i);
+        }else if (position == 7) {
+            Intent i = new Intent(getActivity(), AbacusDetails.class);
+            startActivity(i);
+        }else if (position == 8) {
+            Intent i = new Intent(getActivity(), ComputerlearningDetails.class);
+            startActivity(i);
+        } else if (position == 9) {
+            Intent i = new Intent(getActivity(), BankcoachingDetails.class);
+            startActivity(i);
+        } else if (position == 10) {
+            Intent i = new Intent(getActivity(), YogaDetails.class);
+            startActivity(i);
+        } else if (position == 11) {
+            Intent i = new Intent(getActivity(), DrivingDetails.class);
+            startActivity(i);
+        } else if (position == 12) {
+            Intent i = new Intent(getActivity(), ZimDetails.class);
+            startActivity(i);
         }
 
     }

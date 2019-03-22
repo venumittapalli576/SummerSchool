@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.developmentapps.summerschool.R;
+import com.developmentapps.summerschool.course.CustomAdapter;
 import com.developmentapps.summerschool.other.HttpHandler;
 
 import org.json.JSONArray;
@@ -30,12 +32,12 @@ public class HomeFragment extends Fragment {
     private String TAG = HomeFragment.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
-    ListAdapter adapter;
+    CustomAdapter adapter;
 
 
-    private static String url = "http://192.168.43.240/summerportal/viewdetails/eg.php";
+    private static String url = "http://192.168.43.240/summerportal/viewdetails/search.php";
 
-    ArrayList<HashMap<String, String>> EnglishList;
+    ArrayList<HashMap<String, String>> SearchList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -77,7 +79,7 @@ public class HomeFragment extends Fragment {
 
 
         View view =inflater.inflate(R.layout.fragment_home, container, false);
-        EnglishList = new ArrayList<>();
+        SearchList = new ArrayList<>();
         lv = (ListView) view.findViewById(R.id.list);
 
 
@@ -148,6 +150,10 @@ public class HomeFragment extends Fragment {
                         String name = c.getString("username");
                         String email = c.getString("Email");
                         String phonenumber = c.getString("Phonenumber");
+                        String Course=c.getString("Course");
+                        String Institutionname=c.getString("Institutionname");
+                        String Experiecnce=c.getString("Experiecnce");
+
 
 
                         // tmp hash map for single contact
@@ -156,11 +162,14 @@ public class HomeFragment extends Fragment {
                         // adding each child node to HashMap key => value
                         contact.put("user_id", id);
                         contact.put("name", name);
+                        contact.put("Course",Course);
                         contact.put("email", email);
                         contact.put("Phonenumber", phonenumber);
+                        contact.put("Institutionname",Institutionname);
+                        contact.put("Experiecnce",Experiecnce);
 
                         // adding contact to contact list
-                        EnglishList.add(contact);
+                        SearchList.add(contact);
                     }
 
                 } catch (final JSONException e) {
@@ -203,11 +212,17 @@ public class HomeFragment extends Fragment {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new SimpleAdapter(getActivity(), EnglishList, R.layout.activity_list_item,
-                    new String[]{"name", "email", "Phonenumber"}, new int[]{R.id.name, R.id.email, R.id.mobile});
+            adapter = new CustomAdapter(getActivity(), SearchList, R.layout.activity_list_item,
+                    new String[]{"Institutionname","name", "email", "Phonenumber","Course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.course,R.id.Experience});
 
             lv.setAdapter(adapter);
 
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(getContext(),"",Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

@@ -24,6 +24,9 @@ public class NoConnectionPage extends AppCompatActivity {
                 {
                     Intent i=new Intent(NoConnectionPage.this, LoginActivity.class);
                     startActivity(i);
+                }else{
+                    Intent i=new Intent(NoConnectionPage.this, LoginActivity.class);
+                    startActivity(i);
                 }
             }
         });

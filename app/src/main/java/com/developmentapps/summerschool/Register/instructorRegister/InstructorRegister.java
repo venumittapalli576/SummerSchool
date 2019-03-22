@@ -64,6 +64,7 @@ public class InstructorRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         session = new SessionHandler(getApplicationContext());
         setContentView(R.layout.activity_instructor_register);
+
         inUsername = findViewById(R.id.inUsername);
         inPassword = findViewById(R.id.inPassword);
         inConfirmPassword = findViewById(R.id.inConfirmPassword);

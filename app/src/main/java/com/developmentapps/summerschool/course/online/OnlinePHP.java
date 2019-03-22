@@ -1,17 +1,22 @@
-package com.developmentapps.summerschool.course.offline;
+package com.developmentapps.summerschool.course.online;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.developmentapps.summerschool.Connection.ConnectionCheck;
 import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.course.CustomAdapter;
 import com.developmentapps.summerschool.other.HttpHandler;
@@ -23,29 +28,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EnglishDetails extends AppCompatActivity {
-    private String TAG = EnglishDetails.class.getSimpleName();
+public class OnlinePHP extends AppCompatActivity {
+
+    private CoordinatorLayout coordinatorLayout;
+    private String TAG = OnlinePHP.class.getSimpleName();
     private ProgressDialog pDialog;
     private ListView lv;
     CustomAdapter adapter;
-    Button english;
 
-    private static String url = "http://192.168.43.240/summerportal/viewdetails/eg.php";
+    private static String url = "http://192.168.43.81/summerportal/viewdetails/AbacusDetails.php";
 
-    ArrayList<HashMap<String, String>> EnglishList;
+    ArrayList<HashMap<String, String>> OnlinePHPList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_english_details);
-
-
-        EnglishList = new ArrayList<>();
+        setContentView(R.layout.activity_online_php);
+        OnlinePHPList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
-
-        new GetDetails().execute();
-
-        /*if (ConnectionCheck.connection == true) {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        if (ConnectionCheck.connection)
+        {
             new GetDetails().execute();
         }else{
 
@@ -70,7 +73,9 @@ public class EnglishDetails extends AppCompatActivity {
             textView.setTextColor(Color.YELLOW);
 
             snackbar.show();
-        }*/
+        }
+
+
     }
 
     protected class GetDetails extends AsyncTask<Void, Void, Void> {
@@ -79,7 +84,7 @@ public class EnglishDetails extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             // Showing progress dialog
-            pDialog = new ProgressDialog(EnglishDetails.this);
+            pDialog = new ProgressDialog(OnlinePHP.this);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -97,14 +102,13 @@ public class EnglishDetails extends AppCompatActivity {
 
             if (jsonStr != null) {
                 try {
-
                     JSONObject jsonObj = new JSONObject(jsonStr);
 
                     // Getting JSON Array node
                     JSONArray contacts = jsonObj.getJSONArray("contacts");
 
                     // looping through All Contacts
-                  for (int i = 0; i < contacts.length(); i++) {
+                    for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
 
                         String id = c.getString("user_id");
@@ -128,7 +132,7 @@ public class EnglishDetails extends AppCompatActivity {
                         contact.put("Institutionname",Institutionname);
                         contact.put("Experiecnce",Experiecnce);
                         // adding contact to contact list
-                        EnglishList.add(contact);
+                        OnlinePHPList.add(contact);
                     }
 
                 } catch (final JSONException e) {
@@ -171,8 +175,8 @@ public class EnglishDetails extends AppCompatActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            adapter = new CustomAdapter(getApplicationContext(), EnglishList, R.layout.activity_list_item,
-                    new String[]{"Institutionname","name", "email", "Phonenumber","Course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.course,R.id.Experience});
+            adapter = new CustomAdapter(getApplicationContext(), OnlinePHPList, R.layout.activity_list_item,
+                    new String[]{"Institutionname","name", "email", "mobile","course","Experiecnce"}, new int[]{R.id.Institution_name,R.id.Instructor_name, R.id.email, R.id.mobile,R.id.Course,R.id.Experience});
 
             lv.setAdapter(adapter);
         }
