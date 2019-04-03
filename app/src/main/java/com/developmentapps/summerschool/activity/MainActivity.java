@@ -31,6 +31,7 @@ import com.developmentapps.summerschool.R;
 import com.developmentapps.summerschool.Register.memberRegister.LoginActivity;
 import com.developmentapps.summerschool.Register.memberRegister.SessionHandler;
 import com.developmentapps.summerschool.Register.memberRegister.User;
+import com.developmentapps.summerschool.ShowWelcomeMessage;
 import com.developmentapps.summerschool.fragment.HomeFragment;
 import com.developmentapps.summerschool.fragment.NotificationsFragment;
 import com.developmentapps.summerschool.fragment.PhotosFragment;
@@ -346,6 +347,8 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
+                    case R.id.nav_quiz:
+                        startActivity(new Intent(MainActivity.this, ShowWelcomeMessage.class));
                     case R.id.pdf:
                         startActivity(new Intent(MainActivity.this, PDF.class));
                     case R.id.nav_about_us:

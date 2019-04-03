@@ -71,6 +71,28 @@
         <activity android:name=".course.offline.EnglishDetails" />
         <activity android:name=".course.offline.list_item" />
         <activity android:name=".Register.instructorRegister.InstructorLogin" />
+
+
+
+
+
+        <activity android:name=".ShowWelcomeMessage"/>
+
+        <activity android:name=".ShowWrongMessage"/>
+        <activity android:name=".ShowCurrentScore"/>
+        <activity android:name=".ShowErrorMessage"/>
+        <activity android:name=".ShowPassMessage"/>
+        <activity android:name=".ShowTitle"/>
+        <activity android:name=".ShowDetails"/>
+
+
+
+
+
+
+
+
+
         <activity android:name=".Register.instructorRegister.InstructorRegister" /> <!-- Broadcast receiver declaration in manifest file and make sure to enable it -->
         <receiver android:name=".Connection.ConnectionCheck">
             <intent-filter>

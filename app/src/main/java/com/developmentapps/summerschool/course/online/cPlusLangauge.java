@@ -46,33 +46,8 @@ public class cPlusLangauge extends AppCompatActivity {
         cPlusList = new ArrayList<>();
         lv = (ListView) findViewById(R.id.list);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        if (ConnectionCheck.connection)
-        {
-            new GetDetails().execute();
-        }else{
+        new GetDetails().execute();
 
-            //Toast toast = Toast.makeText(getApplicationContext(), "No connection ", Toast.LENGTH_LONG); toast.show();
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = getIntent();
-                            finish();
-                            startActivity(intent);
-                        }
-                    });
-
-            // Changing message text color
-            snackbar.setActionTextColor(Color.RED);
-
-            // Changing action button text color
-            View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.YELLOW);
-
-            snackbar.show();
-        }
 
 
     }

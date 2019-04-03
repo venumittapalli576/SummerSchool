@@ -8,4 +8,18 @@
     <color name="endblue">#0bcce6</color>
     <color name="balck">#000000</color>
 
+
+
+
+
+
+
+
+    <color name="colortext">#ffffff</color>
+    <color name="passmessage">#FF8BF7EA</color>
+    <color name="BackgroundColor">#000000</color>
+    <color name="colorStrawberry"> #fc5a8d</color>
+    <color name="colorAqua">#00FFFF</color>
+
+
 </resources>

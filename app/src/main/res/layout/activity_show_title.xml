@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_marginTopPercent="5%">
+
+        <TextView
+            android:id="@+id/titleId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="How good ?"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/questionId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
+        android:gravity="left"
+        android:lineSpacingExtra="3dp"
+        android:padding="5dp"
+        android:textStyle="normal"
+        android:text="If you are ?"
+        android:textColor="#151313"
+        android:textSize="22sp"
+        app:layout_marginTopPercent="15%" />
+
+    <TextView
+        android:id="@+id/optionsId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="options"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_marginTopPercent="33%" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        app:layout_heightPercent="45%"
+        app:layout_marginBottomPercent="17%">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:text="" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardOne"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/optionIdOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAqua"
+                    android:elevation="10dp"
+                    android:gravity="left"
+                    android:onClick="onSubmit"
+                    android:padding="7dp"
+                    android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
+In the Component Tree window"
+                    android:textAllCaps="false"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:text="" />
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/optionIdTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAqua"
+                    android:elevation="10dp"
+                    android:gravity="left"
+                    android:onClick="onSubmit"
+                    android:padding="7dp"
+                    android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
+In the Component Tree window"
+                    android:textAllCaps="false"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:text="" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardThree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/optionIdThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAqua"
+                    android:elevation="10dp"
+                    android:gravity="left"
+                    android:onClick="onSubmit"
+                    android:padding="7dp"
+                    android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
+In the Component Tree window"
+                    android:textAllCaps="false"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:text="" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardFour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:cardElevation="10dp">
+
+                <TextView
+                    android:id="@+id/optionIdFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAqua"
+                    android:elevation="10dp"
+                    android:gravity="left"
+                    android:onClick="onSubmit"
+                    android:padding="7dp"
+                    android:text="It is impossiOpen your layout in Android Studio and click the Design tab at the bottom of the editor window.
+In the Component Tree window"
+                    android:textAllCaps="false"
+                    android:textColor="#f000"
+                    android:textSize="18sp" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:text="" />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/glarimy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#f000"
+        android:gravity="end"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/glarimy"
+            android:textColor="#74ffea"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/quiz"
+            android:textColor="#74ffea"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</android.support.percent.PercentFrameLayout>

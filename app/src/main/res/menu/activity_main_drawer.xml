@@ -11,10 +11,14 @@
             android:icon="@drawable/ic_photo_library_black_24dp"
             android:title="@string/nav_photos" />
 
+
         <item
             android:id="@+id/nav_notifications"
             android:icon="@drawable/ic_notifications_black_24dp"
             android:title="@string/nav_notifications" />
+        <item
+            android:id="@+id/nav_quiz"
+            android:title="Quiz" />
         <item
             android:id="@+id/pdf"
             android:title="pdf" />

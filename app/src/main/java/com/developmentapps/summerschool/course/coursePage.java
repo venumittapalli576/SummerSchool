@@ -91,7 +91,6 @@ public class coursePage extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Toast.makeText(getApplicationContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
-                Log.d("coursePage", response.body());
             }
 
             @Override
